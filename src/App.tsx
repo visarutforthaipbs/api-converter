@@ -260,11 +260,11 @@ function App() {
                       ? "bg-green-200 text-green-800"
                       : "bg-yellow-200 text-yellow-800 hover:bg-yellow-300"
                   }`}
-                  title="ใช้ proxy ที่ปรับแต่งสำหรับ API ของหน่วยงานราชการไทยโดยเฉพาะ เพิ่มเวลา timeout เป็น 90 วินาที"
+                  title="ใช้ระบบ Thai Proxy แบบหลายชั้น - จะลองใช้ Proxy จากหลายแหล่งโดยอัตโนมัติเพื่อเข้าถึง API ของไทย หากแหล่งหนึ่งล้มเหลว จะลองแหล่งถัดไป"
                 >
                   {usingThaiProxy
-                    ? "✓ ใช้ Thai Proxy อยู่"
-                    : "ใช้ Thai Proxy สำหรับ .go.th 🇹🇭"}
+                    ? "✓ กำลังใช้ Thai Proxy"
+                    : "ใช้ระบบ Thai Multi-Proxy 🇹🇭"}
                 </button>
               </div>
 
