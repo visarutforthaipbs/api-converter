@@ -45,55 +45,77 @@ export const isThaiGovernmentAPI = (url: string): boolean => {
 
 /**
  * In a browser environment, we can't directly use proxy servers from client-side code.
- * Instead, we'll use public CORS proxies that can forward requests to Thai websites.
+ * For Thai government APIs, we'll use our own built-in proxy with additional options.
  *
  * @param url The URL to fetch data from
  * @returns The fetched data
  */
 export const fetchThroughThaiProxy = async (url: string): Promise<any> => {
-  // List of public CORS proxies
-  const corsProxies = [
-    "https://api.allorigins.win/raw?url=",
-    "https://corsproxy.io/?",
-    "https://proxy.cors.sh/",
-  ];
-
-  let lastError = null;
-
-  // Try each CORS proxy until one works
-  for (const proxy of corsProxies) {
-    try {
-      console.log(`Trying CORS proxy: ${proxy} for URL: ${url}`);
-      const encodedUrl = encodeURIComponent(url);
-      const proxyUrl = `${proxy}${encodedUrl}`;
-
-      const response = await axios.get(proxyUrl, {
-        timeout: 30000,
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-          Accept: "application/json",
-        },
-      });
-
-      // Skip if we got HTML instead of JSON
-      if (
-        typeof response.data === "string" &&
-        (response.data.includes("<!DOCTYPE") || response.data.includes("<html"))
-      ) {
-        console.log(`Proxy ${proxy} returned HTML, trying next...`);
-        continue;
-      }
-
-      console.log(`Successfully fetched data through CORS proxy: ${proxy}`);
-      return response.data;
-    } catch (error: any) {
-      console.error(`Error with CORS proxy ${proxy}:`, error.message);
-      lastError = error;
-    }
+  // First, ensure the URL has the correct protocol format
+  let cleanedUrl = url;
+  if (cleanedUrl.match(/^https?:\/[^/]/)) {
+    cleanedUrl = cleanedUrl.replace(/^(https?):\/([^/])/, "$1://$2");
+    console.log("Fixed malformed protocol:", cleanedUrl);
   }
 
-  // All proxies failed
-  throw new Error(
-    `Thai proxy request failed: ${lastError?.message || "All proxies failed"}`
-  );
+  // Use our own built-in proxy on Vercel if in production,
+  // or localhost:8080 if in development
+  const isProd = window.location.hostname !== "localhost";
+  const proxyPrefix = isProd ? "/api/" : "http://localhost:8080/";
+
+  try {
+    console.log(`Using built-in proxy with Thai settings for: ${cleanedUrl}`);
+    const encodedUrl = encodeURIComponent(cleanedUrl);
+    const proxyUrl = `${proxyPrefix}${encodedUrl}`;
+
+    const response = await axios.get(proxyUrl, {
+      timeout: 90000, // Extend timeout to 90 seconds for slow Thai government APIs
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        Accept: "application/json",
+        // Add headers that might help with Thai government APIs
+        "X-Thai-Proxy": "true",
+        "User-Agent": "Mozilla/5.0 (compatible; ThailandProxyUser/1.0)",
+        Origin: "https://epid-odpc2.ddc.moph.go.th",
+      },
+    });
+
+    // Skip if we got HTML instead of JSON
+    if (
+      typeof response.data === "string" &&
+      (response.data.includes("<!DOCTYPE") || response.data.includes("<html"))
+    ) {
+      throw new Error("API returned HTML instead of JSON data");
+    }
+
+    console.log(`Successfully fetched data through our own proxy`);
+    return response.data;
+  } catch (error: any) {
+    console.error("Thai government API request failed:", error);
+
+    // Try to provide more detailed error information
+    if (error.response) {
+      // Server responded with a non-2xx status code
+      const status = error.response.status;
+      throw new Error(
+        `Thai proxy request failed: Server returned ${status} ${error.response.statusText}`
+      );
+    } else if (error.request) {
+      // Request was made but no response received (timeout, network error)
+      if (error.message?.includes("timeout")) {
+        throw new Error(
+          "Thai government API timeout - server took too long to respond. Try again later."
+        );
+      } else {
+        throw new Error(
+          `Network error connecting to Thai government API. Check your connection or try later.`
+        );
+      }
+    } else {
+      // Something else caused the error
+      throw new Error(
+        `Thai proxy request failed: ${error.message || "Unknown error"}`
+      );
+    }
+  }
 };

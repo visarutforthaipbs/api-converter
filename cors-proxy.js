@@ -21,6 +21,22 @@ app.get("/", (req, res) => {
   );
 });
 
+// Check if a URL is a Thai government API
+function isThaiGovernmentAPI(url) {
+  try {
+    const urlObj = new URL(url);
+    const hostname = urlObj.hostname.toLowerCase();
+
+    return (
+      hostname.endsWith(".go.th") ||
+      hostname.includes(".moph.go.th") ||
+      hostname.includes(".ddc.moph.go.th")
+    );
+  } catch (e) {
+    return false;
+  }
+}
+
 // Main proxy endpoint - handles any URL passed after the domain
 app.get("*", async (req, res) => {
   try {
@@ -103,21 +119,39 @@ app.get("*", async (req, res) => {
 
     console.log(`Proxying request to: ${targetUrl}`);
 
+    // Check if this is a Thai government API
+    const isThaiAPI = isThaiGovernmentAPI(targetUrl);
+    if (isThaiAPI) {
+      console.log(`Detected Thai government API, using special handling`);
+    }
+
     try {
+      // Set up headers for the request
+      const headers = {
+        // Forward these headers to the target server
+        Accept: req.headers.accept || "application/json",
+        "User-Agent": isThaiAPI
+          ? "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+          : "API-Converter-Proxy/1.0",
+        // Avoid forwarding the host header
+        ...(req.headers.authorization && {
+          Authorization: req.headers.authorization,
+        }),
+      };
+
+      // Special handling for Thai government APIs
+      if (isThaiAPI) {
+        headers["Origin"] = new URL(targetUrl).origin;
+        headers["Referer"] = targetUrl;
+        headers["Accept-Language"] = "th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7";
+      }
+
       const response = await axios({
         url: targetUrl,
         method: req.method,
-        headers: {
-          // Forward these headers to the target server
-          Accept: req.headers.accept || "application/json",
-          "User-Agent": "API-Converter-Proxy/1.0",
-          // Avoid forwarding the host header
-          ...(req.headers.authorization && {
-            Authorization: req.headers.authorization,
-          }),
-        },
-        // Add a reasonable timeout
-        timeout: 60000, // Increased to 60 seconds for slow APIs
+        headers: headers,
+        // Longer timeout for Thai government APIs
+        timeout: isThaiAPI ? 90000 : 60000,
         // Handle redirects
         maxRedirects: 5,
         // Forward query parameters
@@ -200,7 +234,9 @@ app.get("*", async (req, res) => {
       } else if (error.request) {
         // The request was made but no response was received
         statusCode = 504; // Gateway Timeout
-        errorMessage = "No response received from target server";
+        errorMessage = isThaiAPI
+          ? "Thai government API timeout - server took too long to respond"
+          : "No response received from target server";
         console.error(`No response from target server for: ${targetUrl}`);
       } else {
         // Something happened in setting up the request
@@ -214,6 +250,7 @@ app.get("*", async (req, res) => {
         error: errorMessage,
         code: statusCode,
         url: targetUrl,
+        isThaiAPI: isThaiAPI,
       });
     }
   } catch (error) {
