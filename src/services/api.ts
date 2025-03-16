@@ -110,19 +110,18 @@ export const fetchApiData = async (url: string): Promise<any[]> => {
       console.log("Fixed malformed protocol:", proxyUrl);
     }
 
-    // Construct proxy URL, ensuring we don't duplicate /api/
-    if (!proxyUrl.startsWith("/api/")) {
-      proxyUrl = `/api/${proxyUrl}`;
-    }
+    // Properly encode the URL to prevent issues with special characters and format
+    const encodedUrl = encodeURIComponent(proxyUrl);
+    const finalProxyUrl = `/api/${encodedUrl}`;
 
     console.log(
-      "Production environment detected, using our proxy directly:",
-      proxyUrl
+      "Production environment detected, using our proxy with encoded URL:",
+      finalProxyUrl
     );
 
     try {
-      const response = await axios.get(proxyUrl, {
-        timeout: 30000,
+      const response = await axios.get(finalProxyUrl, {
+        timeout: 60000, // Increased to 60 seconds for potentially slow APIs
         headers: {
           Accept: "application/json",
         },

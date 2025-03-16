@@ -31,13 +31,28 @@ app.get("*", async (req, res) => {
     console.log(`Original request URL: ${req.url}`);
     console.log(`Initial target URL: ${targetUrl}`);
 
+    // Always try to decode the URL first, in case it's been URL encoded
+    try {
+      const decodedUrl = decodeURIComponent(targetUrl);
+      if (decodedUrl !== targetUrl) {
+        console.log(`Successfully decoded URL: ${decodedUrl}`);
+        targetUrl = decodedUrl;
+      }
+    } catch (e) {
+      console.log(`URL decoding failed, will use as-is: ${e.message}`);
+    }
+
     // Handle case when URL might be double-encoded (from certain clients)
     if (
       targetUrl.startsWith("http%3A%2F%2F") ||
       targetUrl.startsWith("https%3A%2F%2F")
     ) {
-      targetUrl = decodeURIComponent(targetUrl);
-      console.log(`Decoded URL: ${targetUrl}`);
+      try {
+        targetUrl = decodeURIComponent(targetUrl);
+        console.log(`Decoded URL from percent encoding: ${targetUrl}`);
+      } catch (e) {
+        console.log(`Secondary URL decoding failed: ${e.message}`);
+      }
     }
 
     // Fix missing protocols (no http:// or https://)
