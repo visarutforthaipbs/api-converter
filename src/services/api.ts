@@ -65,20 +65,67 @@ const normalizeApiResponse = (responseData: any): any[] => {
 export const fetchApiData = async (url: string): Promise<any[]> => {
   // If URL already has our proxy prefix, use it directly without additional handling
   if (url.includes("localhost:8080/") || url.startsWith("/api/")) {
+    console.log("Using our own proxy server:", url);
     try {
-      console.log("Using our own proxy server:", url);
+      // Use a longer timeout for proxy requests
       const response = await axios.get(url, {
-        timeout: 20000, // 20 second timeout
+        timeout: 30000, // 30 second timeout
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      return normalizeApiResponse(response.data);
+    } catch (error: any) {
+      console.error("Error fetching API data from our proxy:", error);
+      // Provide more specific error message for proxy failures
+      if (error.response && error.response.status === 400) {
+        throw new Error(
+          "Bad request: The API URL may be malformed. Check the format."
+        );
+      } else if (error.response && error.response.status === 404) {
+        throw new Error(
+          "API not found. The endpoint may not exist or may be temporarily unavailable."
+        );
+      } else if (error.message && error.message.includes("timeout")) {
+        throw new Error(
+          "Request timed out. The API server is taking too long to respond."
+        );
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  // Check if we're in production environment (based on hostname)
+  const isProd = window.location.hostname !== "localhost";
+
+  // In production, we should only use our own proxy
+  if (isProd) {
+    // Construct proxy URL
+    const proxyUrl = `/api/${url}`;
+    console.log(
+      "Production environment detected, using our proxy directly:",
+      proxyUrl
+    );
+
+    try {
+      const response = await axios.get(proxyUrl, {
+        timeout: 30000,
         headers: {
           Accept: "application/json",
         },
       });
       return normalizeApiResponse(response.data);
     } catch (error) {
-      console.error("Error fetching API data from our proxy:", error);
+      console.error("Error using production proxy:", error);
       throw error;
     }
   }
+
+  // Only in development, try direct + public proxies as fallbacks
+  console.log(
+    "Development environment, trying direct request + fallback proxies"
+  );
 
   // Updated list of reliable CORS proxies with better options
   const CORS_PROXIES = [

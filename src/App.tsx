@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { fetchApiData, isValidUrl } from "./services/api";
 import DataTable from "./components/DataTable";
@@ -19,7 +19,18 @@ function App() {
   const [filename, setFilename] = useState<string>("my-cool-data");
   const [showProxyHelp, setShowProxyHelp] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("converter");
-  const [usingLocalProxy, setUsingLocalProxy] = useState<boolean>(false);
+  const [usingLocalProxy, setUsingLocalProxy] = useState<boolean>(isProd); // Auto enable proxy in production
+
+  // Effect to automatically add proxy in production
+  useEffect(() => {
+    if (isProd && !apiUrl.includes(proxyPrefix)) {
+      // Apply proxy prefix automatically in production
+      const cleanedUrl = cleanUrlFromProxies(apiUrl);
+      const proxyUrl = `${proxyPrefix}${cleanedUrl}`;
+      console.log("Auto-applying proxy in production:", proxyUrl);
+      setApiUrl(proxyUrl);
+    }
+  }, []); // Run once on component mount
 
   const handleFetchData = async () => {
     if (!apiUrl) {
@@ -37,17 +48,16 @@ function App() {
     setShowProxyHelp(false);
 
     try {
-      // First, ensure we're using the correct proxy when in production
-      // Always use our proxy in production environment for CORS handling
+      // Ensure we're using our proxy in production
       let urlToFetch = apiUrl;
 
-      // Skip if the URL already includes our proxy prefix
-      if (!urlToFetch.includes(proxyPrefix)) {
-        // Clean the URL from other proxy prefixes
+      // If we're in production and the URL doesn't have our proxy prefix
+      if (isProd && !urlToFetch.includes(proxyPrefix)) {
+        // Clean the URL from other proxy prefixes first
         urlToFetch = cleanUrlFromProxies(urlToFetch);
         // Add our proxy prefix
         urlToFetch = `${proxyPrefix}${urlToFetch}`;
-        console.log("Using proxy URL:", urlToFetch);
+        console.log("Using proxy URL in production:", urlToFetch);
       }
 
       const result = await fetchApiData(urlToFetch);
@@ -57,43 +67,42 @@ function App() {
       console.error("Error fetching data:", err);
 
       // Provide more specific error message based on the error
-      if (err?.message?.includes("timeout") || err?.message?.includes("522")) {
+      if (err.message?.includes("HTML")) {
         setError(
-          "ทามเอาท์~~~ อาจเป็นเพราะเซิฟเวอร์ล่มหรือข้อมูลเยอะเกิ๊น เหนื่อยยย 😵‍💫"
+          "ข้อมูลจาก API ไม่ถูกต้อง เพราะได้รับ HTML แทนที่จะเป็น JSON ลองใช้ URL API อื่นดูนะ 🧐"
         );
         setShowProxyHelp(true);
-      } else if (
-        err?.message?.includes("Network Error") ||
-        err?.code === "ERR_NETWORK"
-      ) {
-        setError("เน็ตมีปัญหาหรือป่าว? เช็คเน็ตแล้วลองใหม่นะจ๊ะ 📶❌");
-        setShowProxyHelp(true);
-      } else if (
-        err?.response?.status === 403 ||
-        err?.response?.status === 401
-      ) {
-        setError("เข้าไม่ได้น้าา~ API นี้อาจต้องมีสิทธิ์เข้าถึงพิเศษ 🔐👀");
-        setShowProxyHelp(true);
-      } else if (
-        err?.message?.includes("HTML") ||
-        err?.message?.includes("html")
-      ) {
+      } else if (err.message?.includes("CORS")) {
         setError(
-          "API ส่งข้อมูลที่ไม่ใช่ JSON กลับมา (ได้ HTML แทน) ลองใช้ CORS proxy ด้านล่างนะจ้ะ 🔄"
+          "มีปัญหาเรื่อง CORS ลองใช้ปุ่ม 'ใช้ Built-in Proxy 🧙‍♀️' ด้านล่างแล้วลองดึงข้อมูลอีกครั้ง"
+        );
+        setShowProxyHelp(true);
+      } else if (err.message?.includes("Network Error")) {
+        setError(
+          "เกิดปัญหาเชื่อมต่อกับ API ลองใช้ Built-in Proxy หรือลองใช้ API อื่นดูนะ"
         );
         setShowProxyHelp(true);
       } else {
-        setError(
-          `ดึงข้อมูลไม่ได้เลยอ่ะ: ${
-            err.message || "ไม่รู้สาเหตุ แต่เจ๊ไม่โอเค 😭"
-          }`
-        );
-        setShowProxyHelp(true);
+        setError(`เกิดข้อผิดพลาด: ${err.message || "ไม่ทราบสาเหตุ"} 😵`);
       }
-
       setData([]);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Reset proxy status when user changes URL
+    if (e.target.value !== apiUrl) {
+      setUsingLocalProxy(isProd); // In production, keep proxy enabled
+
+      // If in production and changing URL, ensure any new URL gets proxy prefix
+      if (isProd) {
+        // Don't add prefix here, it will be added when fetching
+        setApiUrl(e.target.value);
+      } else {
+        setApiUrl(e.target.value);
+      }
     }
   };
 
@@ -200,10 +209,7 @@ function App() {
                   type="text"
                   id="api-url"
                   value={apiUrl}
-                  onChange={(e) => {
-                    setApiUrl(e.target.value);
-                    setUsingLocalProxy(e.target.value.includes(proxyPrefix));
-                  }}
+                  onChange={handleInputChange}
                   placeholder="ใส่ URL API ที่อยากแปลงตรงนี้เลย~"
                   className="input-field"
                 />
