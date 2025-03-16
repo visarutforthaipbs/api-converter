@@ -128,8 +128,8 @@ function App() {
     }
 
     // Fix malformed protocol (https:/ instead of https://)
-    if (cleanUrl.match(/^https?:\/[^\/]/)) {
-      cleanUrl = cleanUrl.replace(/^(https?):\/([^\/])/, "$1://$2");
+    if (cleanUrl.match(/^https?:\/[^/]/)) {
+      cleanUrl = cleanUrl.replace(/^(https?):\/([^/])/, "$1://$2");
     }
 
     // Ensure the URL is properly formed
