@@ -64,7 +64,7 @@ export const fetchThroughThaiProxy = async (url: string): Promise<any> => {
   const proxyPrefix = isProd ? "/api/" : "http://localhost:8080/";
 
   try {
-    console.log(`Using built-in proxy with Thai settings for: ${cleanedUrl}`);
+    console.log(`Using proxy server for Thai API request: ${cleanedUrl}`);
     const encodedUrl = encodeURIComponent(cleanedUrl);
     const proxyUrl = `${proxyPrefix}${encodedUrl}`;
 
@@ -73,10 +73,6 @@ export const fetchThroughThaiProxy = async (url: string): Promise<any> => {
       headers: {
         "X-Requested-With": "XMLHttpRequest",
         Accept: "application/json",
-        // Add headers that might help with Thai government APIs
-        "X-Thai-Proxy": "true",
-        "User-Agent": "Mozilla/5.0 (compatible; ThailandProxyUser/1.0)",
-        Origin: "https://epid-odpc2.ddc.moph.go.th",
       },
     });
 
@@ -88,7 +84,9 @@ export const fetchThroughThaiProxy = async (url: string): Promise<any> => {
       throw new Error("API returned HTML instead of JSON data");
     }
 
-    console.log(`Successfully fetched data through our own proxy`);
+    console.log(
+      `Successfully fetched data through our proxy server for Thai API`
+    );
     return response.data;
   } catch (error: any) {
     console.error("Thai government API request failed:", error);

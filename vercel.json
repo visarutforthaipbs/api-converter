@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "cors-proxy.js",
+      "src": "api/cors-proxy.js",
       "use": "@vercel/node"
     },
     {
@@ -14,7 +14,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/cors-proxy.js"
+      "dest": "api/cors-proxy.js"
     },
     {
       "src": "/api",
@@ -46,7 +46,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/"
     }
   ]
 }
