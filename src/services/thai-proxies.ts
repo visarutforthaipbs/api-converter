@@ -44,69 +44,56 @@ export const isThaiGovernmentAPI = (url: string): boolean => {
 };
 
 /**
- * Test if a proxy is working
- * @param proxy The proxy to test
- * @returns True if the proxy is working
- */
-export const testProxy = async (proxy: string): Promise<boolean> => {
-  try {
-    const [host, port] = proxy.split(":");
-    const httpsAgent = new (require("https-proxy-agent"))(
-      `http://${host}:${port}`
-    );
-
-    const response = await axios.get("https://api.ipify.org?format=json", {
-      httpsAgent,
-      timeout: 5000,
-    });
-
-    return response.status === 200;
-  } catch (error: any) {
-    console.error(`Proxy ${proxy} test failed:`, error.message);
-    return false;
-  }
-};
-
-/**
- * Find a working Thai proxy from the list
- * @returns A working proxy or null if none found
- */
-export const findWorkingProxy = async (): Promise<string | null> => {
-  for (const proxy of thaiProxies) {
-    const isWorking = await testProxy(proxy);
-    if (isWorking) {
-      console.log(`Found working Thai proxy: ${proxy}`);
-      return proxy;
-    }
-  }
-  return null;
-};
-
-/**
- * Fetch data through a Thai proxy
- * @param url The URL to fetch
+ * In a browser environment, we can't directly use proxy servers from client-side code.
+ * Instead, we'll use public CORS proxies that can forward requests to Thai websites.
+ *
+ * @param url The URL to fetch data from
  * @returns The fetched data
  */
 export const fetchThroughThaiProxy = async (url: string): Promise<any> => {
-  const workingProxy = await findWorkingProxy();
+  // List of public CORS proxies
+  const corsProxies = [
+    "https://api.allorigins.win/raw?url=",
+    "https://corsproxy.io/?",
+    "https://proxy.cors.sh/",
+  ];
 
-  if (!workingProxy) {
-    throw new Error("No working Thai proxies found");
+  let lastError = null;
+
+  // Try each CORS proxy until one works
+  for (const proxy of corsProxies) {
+    try {
+      console.log(`Trying CORS proxy: ${proxy} for URL: ${url}`);
+      const encodedUrl = encodeURIComponent(url);
+      const proxyUrl = `${proxy}${encodedUrl}`;
+
+      const response = await axios.get(proxyUrl, {
+        timeout: 30000,
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          Accept: "application/json",
+        },
+      });
+
+      // Skip if we got HTML instead of JSON
+      if (
+        typeof response.data === "string" &&
+        (response.data.includes("<!DOCTYPE") || response.data.includes("<html"))
+      ) {
+        console.log(`Proxy ${proxy} returned HTML, trying next...`);
+        continue;
+      }
+
+      console.log(`Successfully fetched data through CORS proxy: ${proxy}`);
+      return response.data;
+    } catch (error: any) {
+      console.error(`Error with CORS proxy ${proxy}:`, error.message);
+      lastError = error;
+    }
   }
 
-  try {
-    const [host, port] = workingProxy.split(":");
-    const httpsAgent = new (require("https-proxy-agent"))(
-      `http://${host}:${port}`
-    );
-
-    const response = await axios.get(url, {
-      httpsAgent,
-      timeout: 30000,
-    });
-
-    return response.data;
-  } catch (error: any) {
-    throw new Error(`Thai proxy request failed: ${error.message}`);
-  }
+  // All proxies failed
+  throw new Error(
+    `Thai proxy request failed: ${lastError?.message || "All proxies failed"}`
+  );
 };
