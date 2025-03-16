@@ -1,4 +1,5 @@
 import axios from "axios";
+import { fetchThroughThaiProxy, isThaiGovernmentAPI } from "./thai-proxies";
 
 /**
  * Normalizes API response data structure
@@ -57,160 +58,65 @@ const normalizeApiResponse = (responseData: any): any[] => {
   return Array.isArray(responseData) ? responseData : [responseData];
 };
 
+// Add a function to check if a URL is a Thai government API
+const isThaiGovernmentAPI = (url: string): boolean => {
+  // Check for common Thai government domains
+  return (
+    url.includes(".go.th") ||
+    url.includes(".moph.go.th") ||
+    url.includes("epid-odpc2.ddc.moph.go.th") ||
+    url.includes("covid19.ddc.moph.go.th")
+  );
+};
+
+interface FetchOptions {
+  useThaiProxy?: boolean;
+}
+
 /**
  * Fetches data from the specified API URL
  * @param url The API URL to fetch data from
  * @returns The fetched data as an array of objects
  */
-export const fetchApiData = async (url: string): Promise<any[]> => {
-  // If URL already has our proxy prefix, use it directly without additional handling
-  if (url.includes("localhost:8080/") || url.startsWith("/api/")) {
-    console.log("Using our own proxy server:", url);
+export const fetchApiData = async (url: string, options: FetchOptions = {}) => {
+  const { useThaiProxy = false } = options;
+
+  console.log(`Fetching from ${url} ${useThaiProxy ? "using Thai proxy" : ""}`);
+
+  // If this is a Thai government API and useThaiProxy is true, try using the Thai proxy
+  if (useThaiProxy && isThaiGovernmentAPI(url)) {
     try {
-      // Use a longer timeout for proxy requests
-      const response = await axios.get(url, {
-        timeout: 30000, // 30 second timeout
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      return normalizeApiResponse(response.data);
+      console.log("Attempting to fetch through Thai proxy...");
+      const data = await fetchThroughThaiProxy(url);
+      console.log("Successfully fetched through Thai proxy");
+      return data;
     } catch (error: any) {
-      console.error("Error fetching API data from our proxy:", error);
-      // Provide more specific error message for proxy failures
-      if (error.response && error.response.status === 400) {
-        throw new Error(
-          "Bad request: The API URL may be malformed. Check the format."
-        );
-      } else if (error.response && error.response.status === 404) {
-        throw new Error(
-          "API not found. The endpoint may not exist or may be temporarily unavailable."
-        );
-      } else if (error.message && error.message.includes("timeout")) {
-        throw new Error(
-          "Request timed out. The API server is taking too long to respond."
-        );
-      } else {
-        throw error;
-      }
+      console.error("Thai proxy fetch failed:", error);
+      throw new Error(`Thai proxy fetch failed: ${error.message}`);
     }
   }
 
-  // Check if we're in production environment (based on hostname)
-  const isProd = window.location.hostname !== "localhost";
-
-  // In production, we should only use our own proxy
-  if (isProd) {
-    // Make sure the URL has a properly formatted protocol
-    let proxyUrl = url;
-
-    // Fix the common protocol formatting issue (https:/ instead of https://)
-    if (proxyUrl.match(/^https?:\/[^/]/)) {
-      proxyUrl = proxyUrl.replace(/^(https?):\/([^/])/, "$1://$2");
-      console.log("Fixed malformed protocol:", proxyUrl);
-    }
-
-    // Properly encode the URL to prevent issues with special characters and format
-    const encodedUrl = encodeURIComponent(proxyUrl);
-    const finalProxyUrl = `/api/${encodedUrl}`;
-
-    console.log(
-      "Production environment detected, using our proxy with encoded URL:",
-      finalProxyUrl
-    );
-
-    try {
-      const response = await axios.get(finalProxyUrl, {
-        timeout: 60000, // Increased to 60 seconds for potentially slow APIs
-        headers: {
-          Accept: "application/json",
-        },
-      });
-      return normalizeApiResponse(response.data);
-    } catch (error) {
-      console.error("Error using production proxy:", error);
-      throw error;
-    }
-  }
-
-  // Only in development, try direct + public proxies as fallbacks
-  console.log(
-    "Development environment, trying direct request + fallback proxies"
-  );
-
-  // Updated list of reliable CORS proxies with better options
-  const CORS_PROXIES = [
-    "https://api.allorigins.win/raw?url=",
-    "https://corsproxy.io/?",
-    "https://proxy.cors.sh/",
-    "https://cors-anywhere.herokuapp.com/",
-  ];
-
-  // Try direct request first (might work for CORS-enabled APIs)
   try {
-    console.log("Trying direct request without proxy");
-    const response = await axios.get(url, {
-      timeout: 10000, // 10 second timeout
-      headers: {
-        Accept: "application/json",
-      },
+    // Ensure URL is properly encoded - critical for some Thai government APIs
+    const encodedUrl = encodeURI(url);
+
+    const response = await axios.get(encodedUrl, {
+      timeout: 60000, // 60 seconds timeout
     });
 
-    // Check if we got HTML instead of JSON
+    // Handle receiving HTML instead of JSON
     if (
       typeof response.data === "string" &&
-      (response.data.includes("<!DOCTYPE") || response.data.includes("<html"))
+      response.data.includes("<!DOCTYPE html>")
     ) {
-      console.log("Direct request returned HTML, trying proxies...");
-    } else {
-      // Success! Return the data
-      return normalizeApiResponse(response.data);
+      throw new Error("HTML response received instead of JSON data");
     }
+
+    return response.data;
   } catch (error: any) {
-    console.log("Direct request failed, trying proxies:", error.message);
-    // Continue to proxy attempts
+    console.error("Error fetching API data:", error);
+    throw error;
   }
-
-  // Try each proxy in sequence until one works
-  let lastError: any = null;
-
-  for (const proxy of CORS_PROXIES) {
-    try {
-      const proxyUrl = `${proxy}${encodeURIComponent(url)}`;
-      console.log(`Trying proxy: ${proxy}`);
-
-      const response = await axios.get(proxyUrl, {
-        timeout: 15000, // 15 second timeout
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-          Accept: "application/json",
-        },
-      });
-
-      // Skip this proxy if it returned HTML
-      if (
-        typeof response.data === "string" &&
-        (response.data.includes("<!DOCTYPE") || response.data.includes("<html"))
-      ) {
-        console.log(`Proxy ${proxy} returned HTML, trying next...`);
-        continue;
-      }
-
-      return normalizeApiResponse(response.data);
-    } catch (error) {
-      console.error(`Error with proxy ${proxy}:`, error);
-      lastError = error;
-    }
-  }
-
-  // If all attempts fail, throw a more helpful error message
-  console.error("All proxy attempts failed");
-  throw (
-    lastError ||
-    new Error(
-      "Unable to access API data. This might be due to CORS restrictions. Try using a different API endpoint or use the app locally with the proxy server."
-    )
-  );
 };
 
 /**

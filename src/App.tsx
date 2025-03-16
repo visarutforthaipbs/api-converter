@@ -23,6 +23,7 @@ function App() {
   const [showProxyHelp, setShowProxyHelp] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("converter");
   const [usingLocalProxy, setUsingLocalProxy] = useState<boolean>(isProd); // Auto enable proxy in production
+  const [usingThaiProxy, setUsingThaiProxy] = useState<boolean>(false);
 
   // Effect to automatically add proxy in production
   useEffect(() => {
@@ -63,17 +64,26 @@ function App() {
 
       console.log("Cleaned URL for fetching:", urlToFetch);
 
-      // In production, our API service will handle adding the proxy
-      // We don't need to modify the URL here as the API service will do that
+      // Pass a flag to indicate Thai proxy use if selected
+      const options = {
+        useThaiProxy: usingThaiProxy,
+      };
 
-      const result = await fetchApiData(urlToFetch);
+      const result = await fetchApiData(urlToFetch, options);
       setData(Array.isArray(result) ? result : [result]);
       setError(null);
+
+      // Reset Thai proxy flag after successful fetch
+      setUsingThaiProxy(false);
     } catch (err: any) {
       console.error("Error fetching data:", err);
 
-      // Provide more specific error message based on the error
-      if (err.message?.includes("HTML")) {
+      // Add a special case for Thai proxy errors
+      if (err.message?.includes("Thai proxy")) {
+        setError(
+          `ขออภัย ไม่สามารถเชื่อมต่อผ่าน Thai Proxy ได้: ${err.message}`
+        );
+      } else if (err.message?.includes("HTML")) {
         setError(
           "ข้อมูลจาก API ไม่ถูกต้อง เพราะได้รับ HTML แทนที่จะเป็น JSON ลองใช้ URL API อื่นดูนะ 🧐"
         );
@@ -92,6 +102,9 @@ function App() {
         setError(`เกิดข้อผิดพลาด: ${err.message || "ไม่ทราบสาเหตุ"} 😵`);
       }
       setData([]);
+
+      // Reset Thai proxy flag after failed fetch
+      setUsingThaiProxy(false);
     } finally {
       setIsLoading(false);
     }
@@ -186,6 +199,11 @@ function App() {
     }
   };
 
+  const useThaiProxy = () => {
+    setUsingThaiProxy(true);
+    console.log("Set to use Thai proxy for the next request");
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -216,17 +234,53 @@ function App() {
         {activeTab === "converter" && (
           <>
             <div className="input-section">
-              <div className="input-group">
-                <label htmlFor="api-url">URL API ที่อยากแปลง:</label>
+              <div className="flex flex-col md:flex-row gap-2 mt-4">
                 <input
                   type="text"
-                  id="api-url"
                   value={apiUrl}
-                  onChange={handleInputChange}
-                  placeholder="ใส่ URL API ที่อยากแปลงตรงนี้เลย~"
-                  className="input-field"
+                  onChange={(e) => setApiUrl(e.target.value)}
+                  placeholder="API URL ที่ต้องการดึงข้อมูล"
+                  className="flex-1 p-2 border border-gray-300 rounded"
                 />
+                <button
+                  onClick={handleFetchData}
+                  disabled={isLoading}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex-shrink-0"
+                >
+                  {isLoading ? "กำลังดึงข้อมูล..." : "ดึงข้อมูล"}
+                </button>
               </div>
+
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={useLocalProxy}
+                  disabled={usingLocalProxy}
+                  className={`text-sm py-1 px-2 rounded ${
+                    usingLocalProxy
+                      ? "bg-green-200 text-green-800"
+                      : "bg-blue-200 text-blue-800 hover:bg-blue-300"
+                  }`}
+                >
+                  {usingLocalProxy
+                    ? "✓ ใช้ Built-in Proxy อยู่"
+                    : "ใช้ Built-in Proxy 🧙‍♀️"}
+                </button>
+
+                <button
+                  onClick={useThaiProxy}
+                  disabled={usingThaiProxy}
+                  className={`text-sm py-1 px-2 rounded ${
+                    usingThaiProxy
+                      ? "bg-green-200 text-green-800"
+                      : "bg-yellow-200 text-yellow-800 hover:bg-yellow-300"
+                  }`}
+                >
+                  {usingThaiProxy
+                    ? "✓ ใช้ Thai Proxy อยู่"
+                    : "ใช้ Thai Proxy 🇹🇭"}
+                </button>
+              </div>
+
               <div className="input-group">
                 <label htmlFor="filename">ชื่อไฟล์ที่จะดาวน์โหลด:</label>
                 <input
@@ -238,13 +292,6 @@ function App() {
                   className="input-field"
                 />
               </div>
-              <button
-                className="fetch-button"
-                onClick={handleFetchData}
-                disabled={isLoading}
-              >
-                {isLoading ? "กำลังดึงข้อมูลจ้า... 🔄" : "ไปเลยคร้าบบบ! 🚀"}
-              </button>
             </div>
 
             {error && (
