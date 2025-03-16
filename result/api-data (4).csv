@@ -1,0 +1,183 @@
+﻿"data","totalCount"
+"[
+  {
+    ""changwatname"": null,
+    ""ampurname"": ""กงไกรลาศ"",
+    ""tambonname"": ""บ้านกร่าง"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": null,
+    ""ampurname"": ""คีรีมาศ"",
+    ""tambonname"": ""โตนด"",
+    ""patient_count"": 4
+  },
+  {
+    ""changwatname"": null,
+    ""ampurname"": ""ทุ่งเสลี่ยม"",
+    ""tambonname"": ""ทุ่งเสลี่ยม"",
+    ""patient_count"": 4
+  },
+  {
+    ""changwatname"": null,
+    ""ampurname"": ""ศรีนคร"",
+    ""tambonname"": ""ศรีนคร"",
+    ""patient_count"": 2
+  },
+  {
+    ""changwatname"": null,
+    ""ampurname"": ""ศรีสำโรง"",
+    ""tambonname"": ""คลองตาล"",
+    ""patient_count"": 2
+  },
+  {
+    ""changwatname"": null,
+    ""ampurname"": ""สวรรคโลก"",
+    ""tambonname"": ""ในเมือง"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": null,
+    ""ampurname"": ""เมืองสุโขทัย"",
+    ""tambonname"": ""บ้านกล้วย"",
+    ""patient_count"": 2
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""ท่าสองยาง"",
+    ""tambonname"": ""ท่าสองยาง"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""ท่าสองยาง"",
+    ""tambonname"": ""แม่ต้าน"",
+    ""patient_count"": 3
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""ท่าสองยาง"",
+    ""tambonname"": ""แม่วะหลวง"",
+    ""patient_count"": 5
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""ท่าสองยาง"",
+    ""tambonname"": ""แม่สอง"",
+    ""patient_count"": 12
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""ท่าสองยาง"",
+    ""tambonname"": ""แม่หละ"",
+    ""patient_count"": 10
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""ท่าสองยาง"",
+    ""tambonname"": ""แม่อุสุ"",
+    ""patient_count"": 4
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""บ้านตาก"",
+    ""tambonname"": ""ตากตก"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""บ้านตาก"",
+    ""tambonname"": ""สมอโคน"",
+    ""patient_count"": 2
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""บ้านตาก"",
+    ""tambonname"": ""เกาะตะเภา"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""บ้านตาก"",
+    ""tambonname"": ""แม่สลิด"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""พบพระ"",
+    ""tambonname"": ""คีรีราษฎร์"",
+    ""patient_count"": 2
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""พบพระ"",
+    ""tambonname"": ""พบพระ"",
+    ""patient_count"": 2
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""พบพระ"",
+    ""tambonname"": ""รวมไทยพัฒนา"",
+    ""patient_count"": 9
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""พบพระ"",
+    ""tambonname"": ""วาเล่ย์"",
+    ""patient_count"": 3
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""วังเจ้า"",
+    ""tambonname"": ""นาโบสถ์"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""วังเจ้า"",
+    ""tambonname"": ""เชียงทอง"",
+    ""patient_count"": 4
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""สามเงา"",
+    ""tambonname"": ""ยกกระบัตร"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""สามเงา"",
+    ""tambonname"": ""วังหมัน"",
+    ""patient_count"": 4
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""อุ้มผาง"",
+    ""tambonname"": ""แม่กลอง"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""อุ้มผาง"",
+    ""tambonname"": ""โมโกร"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""เมือง"",
+    ""tambonname"": ""ตลุกกลางทุ่ง"",
+    ""patient_count"": 1
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""เมือง"",
+    ""tambonname"": ""น้ำรึม"",
+    ""patient_count"": 3
+  },
+  {
+    ""changwatname"": ""ตาก"",
+    ""ampurname"": ""เมือง"",
+    ""tambonname"": ""วังประจบ"",
+    ""patient_count"": 2
+  }
+]","11040"

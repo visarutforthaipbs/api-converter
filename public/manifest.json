@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "แปลงเอพีไอ",
+  "name": "แปลงร่างเอพีไอ | ง่ายๆ ไม่ต้องเขียนโค้ด",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#8e2de2",
+  "background_color": "#f5f9ff"
 }

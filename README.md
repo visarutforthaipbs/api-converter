@@ -1,46 +1,115 @@
-# Getting Started with Create React App
+# API Converter Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web application that helps users convert data from any API into user-friendly formats like CSV, Excel, or JSON for easier manipulation and analysis.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Simple, user-friendly interface
+- Paste any API URL to fetch data
+- Preview fetched data in a table format
+- Export data to multiple formats:
+  - CSV (for spreadsheet applications)
+  - Excel (.xlsx)
+  - JSON (for developers)
+- Automatic data formatting and handling
+- Responsive design for desktop and mobile devices
+- Built-in CORS proxy support for accessing APIs with CORS restrictions
+- Robust error handling with helpful suggestions
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node.js (version 14.0 or above)
+- npm or yarn
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone this repository
 
-### `npm run build`
+```bash
+git clone https://github.com/yourusername/api-converter.git
+cd api-converter
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Start the development server
 
-### `npm run eject`
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. Open your browser and navigate to http://localhost:3000
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## How to Use
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Enter the API URL in the input field (a default example is provided)
+2. Optionally, enter a custom filename for your exported data
+3. Click "Fetch Data" to retrieve the data from the API
+4. Preview the data in the table that appears below
+5. Click any of the export buttons (CSV, Excel, JSON) to download the data in your preferred format
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## CORS Issues and Solutions
 
-## Learn More
+This application handles CORS (Cross-Origin Resource Sharing) restrictions that commonly occur when accessing APIs from different domains in several ways:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Multiple CORS Proxies**: The application tries several CORS proxy services in sequence:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   - corsproxy.io
+   - cors-anywhere.herokuapp.com
+   - api.allorigins.win
+
+2. **Development Proxy Configuration**: For local development, the application includes a proxy configuration in package.json.
+
+3. **Local CORS Proxy**: You can run a local CORS proxy server with:
+
+```bash
+# Run the local proxy server
+npm run proxy
+
+# In a separate terminal, start the application
+npm start
+```
+
+If you encounter API fetch errors, the application will provide helpful instructions and a convenient button to use the local proxy.
+
+### Troubleshooting Large Datasets
+
+If you're trying to fetch a very large dataset (like the example with 50,000 records), you might encounter timeout errors. Try these solutions:
+
+1. Reduce the limit parameter in the URL (e.g., change `limit=50000` to `limit=1000`)
+2. Run the local proxy server which may have better performance for large datasets
+3. If the API supports pagination, use it to fetch data in smaller chunks
+
+## Use Case Example
+
+This tool was developed specifically to help with data from health APIs like:
+
+```
+https://epid-odpc2.ddc.moph.go.th/haze-r2/api/patient-group-location?limit=50000
+```
+
+Instead of manually copying and pasting data, users can now easily convert API responses to more manageable formats.
+
+## Technologies Used
+
+- React
+- TypeScript
+- Axios (for API requests)
+- Papa Parse (for CSV conversion)
+- SheetJS (for Excel conversion)
+- FileSaver.js (for file downloading)
+- Multiple CORS proxies for reliable cross-origin requests
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

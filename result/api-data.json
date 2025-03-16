@@ -1,0 +1,1771 @@
+[
+  {
+    "data": [
+      {
+        "changwatname": null,
+        "ampurname": "กงไกรลาศ",
+        "tambonname": "บ้านกร่าง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": null,
+        "ampurname": "คีรีมาศ",
+        "tambonname": "โตนด",
+        "patient_count": 4
+      },
+      {
+        "changwatname": null,
+        "ampurname": "ทุ่งเสลี่ยม",
+        "tambonname": "ทุ่งเสลี่ยม",
+        "patient_count": 4
+      },
+      {
+        "changwatname": null,
+        "ampurname": "ศรีนคร",
+        "tambonname": "ศรีนคร",
+        "patient_count": 2
+      },
+      {
+        "changwatname": null,
+        "ampurname": "ศรีสำโรง",
+        "tambonname": "คลองตาล",
+        "patient_count": 2
+      },
+      {
+        "changwatname": null,
+        "ampurname": "สวรรคโลก",
+        "tambonname": "ในเมือง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": null,
+        "ampurname": "เมืองสุโขทัย",
+        "tambonname": "บ้านกล้วย",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "ท่าสองยาง",
+        "tambonname": "ท่าสองยาง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "ท่าสองยาง",
+        "tambonname": "แม่ต้าน",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "ท่าสองยาง",
+        "tambonname": "แม่วะหลวง",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "ท่าสองยาง",
+        "tambonname": "แม่สอง",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "ท่าสองยาง",
+        "tambonname": "แม่หละ",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "ท่าสองยาง",
+        "tambonname": "แม่อุสุ",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "บ้านตาก",
+        "tambonname": "ตากตก",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "บ้านตาก",
+        "tambonname": "สมอโคน",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "บ้านตาก",
+        "tambonname": "เกาะตะเภา",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "บ้านตาก",
+        "tambonname": "แม่สลิด",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "พบพระ",
+        "tambonname": "คีรีราษฎร์",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "พบพระ",
+        "tambonname": "พบพระ",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "พบพระ",
+        "tambonname": "รวมไทยพัฒนา",
+        "patient_count": 9
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "พบพระ",
+        "tambonname": "วาเล่ย์",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "วังเจ้า",
+        "tambonname": "นาโบสถ์",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "วังเจ้า",
+        "tambonname": "เชียงทอง",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "สามเงา",
+        "tambonname": "ยกกระบัตร",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "สามเงา",
+        "tambonname": "วังหมัน",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "อุ้มผาง",
+        "tambonname": "แม่กลอง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "อุ้มผาง",
+        "tambonname": "โมโกร",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "เมือง",
+        "tambonname": "ตลุกกลางทุ่ง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "เมือง",
+        "tambonname": "น้ำรึม",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "เมือง",
+        "tambonname": "วังประจบ",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "เมือง",
+        "tambonname": "หนองบัวเหนือ",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "เมือง",
+        "tambonname": "โป่งแดง",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่ระมาด",
+        "tambonname": "พระธาตุ",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่ระมาด",
+        "tambonname": "สามหมื่น",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่ระมาด",
+        "tambonname": "แม่จะเรา",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่ระมาด",
+        "tambonname": "แม่ตื่น",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่สอด",
+        "tambonname": "ด่านแม่ละเมา",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่สอด",
+        "tambonname": "ท่าสายลวด",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่สอด",
+        "tambonname": "พะวอ",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่สอด",
+        "tambonname": "แม่กาษา",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่สอด",
+        "tambonname": "แม่กุ",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "ตาก",
+        "ampurname": "แม่สอด",
+        "tambonname": "แม่ปะ",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "ชาติตระการ",
+        "tambonname": "บ่อภาค",
+        "patient_count": 23
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "ชาติตระการ",
+        "tambonname": "บ้านดง",
+        "patient_count": 8
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "ชาติตระการ",
+        "tambonname": "ป่าแดง",
+        "patient_count": 24
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "ชาติตระการ",
+        "tambonname": "สวนเมี่ยง",
+        "patient_count": 15
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "นครชุม",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "นครไทย",
+        "patient_count": 49
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "นาบัว",
+        "patient_count": 16
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "น้ำกุ่ม",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "บ่อโพธิ์",
+        "patient_count": 28
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "บ้านพร้าว",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "บ้านแยง",
+        "patient_count": 89
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "ยางโกลน",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "หนองกะท้าว",
+        "patient_count": 17
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "ห้วยเฮี้ย",
+        "patient_count": 52
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "นครไทย",
+        "tambonname": "เนินเพิ่ม",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางกระทุ่ม",
+        "tambonname": "ท่าตาล",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางกระทุ่ม",
+        "tambonname": "นครป่าหมาก",
+        "patient_count": 25
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางกระทุ่ม",
+        "tambonname": "บ้านไร่",
+        "patient_count": 15
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางกระทุ่ม",
+        "tambonname": "เนินกุ่ม",
+        "patient_count": 9
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางกระทุ่ม",
+        "tambonname": "โคกสลุด",
+        "patient_count": 26
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางกระทุ่ม",
+        "tambonname": "ไผ่ล้อม",
+        "patient_count": 51
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "คุยม่วง",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "ชุมแสงสงคราม",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "ท่านางงาม",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "บางระกำ",
+        "patient_count": 23
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "บึงกอก",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "บ่อทอง",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "ปลักแรด",
+        "patient_count": 8
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "วังอิทก",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "บางระกำ",
+        "tambonname": "หนองกุลา",
+        "patient_count": 48
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "ดงประคำ",
+        "patient_count": 30
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "ตลุกเทียม",
+        "patient_count": 52
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "ทับยายเชียง",
+        "patient_count": 20
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "ท่าช้าง",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "พรหมพิราม",
+        "patient_count": 46
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "มะตูม",
+        "patient_count": 15
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "มะต้อง",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "วงฆ้อง",
+        "patient_count": 16
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "หนองแขม",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "พรหมพิราม",
+        "tambonname": "หอกลอง",
+        "patient_count": 19
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "ชัยนาม",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "ดินทอง",
+        "patient_count": 16
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "ท่าหมื่นราม",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "บ้านกลาง",
+        "patient_count": 42
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "พันชาลี",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "วังทอง",
+        "patient_count": 8
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "วังนกแอ่น",
+        "patient_count": 58
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "วังพิกุล",
+        "patient_count": 30
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "หนองพระ",
+        "patient_count": 22
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วังทอง",
+        "tambonname": "แม่ระกา",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วัดโบสถ์",
+        "tambonname": "คันโช้ง",
+        "patient_count": 24
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วัดโบสถ์",
+        "tambonname": "ท้อแท้",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วัดโบสถ์",
+        "tambonname": "บ้านยาง",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วัดโบสถ์",
+        "tambonname": "วัดโบสถ์",
+        "patient_count": 42
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "วัดโบสถ์",
+        "tambonname": "หินลาด",
+        "patient_count": 31
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เนินมะปราง",
+        "tambonname": "ชมพู",
+        "patient_count": 50
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เนินมะปราง",
+        "tambonname": "บ้านน้อยซุ้มขี้เหล็ก",
+        "patient_count": 54
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เนินมะปราง",
+        "tambonname": "บ้านมุง",
+        "patient_count": 35
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เนินมะปราง",
+        "tambonname": "วังยาง",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เนินมะปราง",
+        "tambonname": "วังโพรง",
+        "patient_count": 52
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เนินมะปราง",
+        "tambonname": "เนินมะปราง",
+        "patient_count": 8
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เนินมะปราง",
+        "tambonname": "ไทรย้อย",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "งิ้วงาม",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "จอมทอง",
+        "patient_count": 17
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "ดอนทอง",
+        "patient_count": 20
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "ท่าทอง",
+        "patient_count": 9
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "บ้านกร่าง",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "บ้านคลอง",
+        "patient_count": 72
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "บ้านป่า",
+        "patient_count": 31
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "พลายชุมพล",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "วังน้ำคู้",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "วัดจันทร์",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "สมอแข",
+        "patient_count": 33
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "หัวรอ",
+        "patient_count": 17
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "อรัญญิก",
+        "patient_count": 25
+      },
+      {
+        "changwatname": "พิษณุโลก",
+        "ampurname": "เมืองพิษณุโลก",
+        "tambonname": "ในเมือง",
+        "patient_count": 59
+      },
+      {
+        "changwatname": "สุโขทัย",
+        "ampurname": "กงไกรลาศ",
+        "tambonname": "บ้านกร่าง",
+        "patient_count": 9
+      },
+      {
+        "changwatname": "สุโขทัย",
+        "ampurname": "คีรีมาศ",
+        "tambonname": "โตนด",
+        "patient_count": 29
+      },
+      {
+        "changwatname": "สุโขทัย",
+        "ampurname": "ทุ่งเสลี่ยม",
+        "tambonname": "ทุ่งเสลี่ยม",
+        "patient_count": 25
+      },
+      {
+        "changwatname": "สุโขทัย",
+        "ampurname": "ศรีนคร",
+        "tambonname": "ศรีนคร",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "สุโขทัย",
+        "ampurname": "ศรีสำโรง",
+        "tambonname": "คลองตาล",
+        "patient_count": 17
+      },
+      {
+        "changwatname": "สุโขทัย",
+        "ampurname": "สวรรคโลก",
+        "tambonname": "ในเมือง",
+        "patient_count": 8
+      },
+      {
+        "changwatname": "สุโขทัย",
+        "ampurname": "เมืองสุโขทัย",
+        "tambonname": "บ้านกล้วย",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ตรอน",
+        "tambonname": "ข่อยสูง",
+        "patient_count": 23
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ตรอน",
+        "tambonname": "น้ำอ่าง",
+        "patient_count": 166
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ตรอน",
+        "tambonname": "บ้านแก่ง",
+        "patient_count": 223
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ตรอน",
+        "tambonname": "วังแดง",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ตรอน",
+        "tambonname": "หาดสองแคว",
+        "patient_count": 63
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ทองแสนขัน",
+        "tambonname": "น้ำพี้",
+        "patient_count": 72
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ทองแสนขัน",
+        "tambonname": "บ่อทอง",
+        "patient_count": 216
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ทองแสนขัน",
+        "tambonname": "ป่าคาย",
+        "patient_count": 35
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ทองแสนขัน",
+        "tambonname": "ผักขวง",
+        "patient_count": 121
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ท่าปลา",
+        "tambonname": "จริม",
+        "patient_count": 210
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ท่าปลา",
+        "tambonname": "ท่าปลา",
+        "patient_count": 247
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ท่าปลา",
+        "tambonname": "นางพญา",
+        "patient_count": 209
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ท่าปลา",
+        "tambonname": "น้ำหมัน",
+        "patient_count": 123
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ท่าปลา",
+        "tambonname": "ผาเลือด",
+        "patient_count": 147
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ท่าปลา",
+        "tambonname": "หาดล้า",
+        "patient_count": 102
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "น้ำปาด",
+        "tambonname": "ท่าแฝก",
+        "patient_count": 196
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "น้ำปาด",
+        "tambonname": "น้ำไคร้",
+        "patient_count": 357
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "น้ำปาด",
+        "tambonname": "น้ำไผ่",
+        "patient_count": 266
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "น้ำปาด",
+        "tambonname": "บ้านฝาย",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "น้ำปาด",
+        "tambonname": "ห้วยมุ่น",
+        "patient_count": 282
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "น้ำปาด",
+        "tambonname": "เด่นเหล็ก",
+        "patient_count": 20
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "น้ำปาด",
+        "tambonname": "แสนตอ",
+        "patient_count": 178
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "บ้านโคก",
+        "tambonname": "นาขุม",
+        "patient_count": 171
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "บ้านโคก",
+        "tambonname": "บ่อเบี้ย",
+        "patient_count": 42
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "บ้านโคก",
+        "tambonname": "บ้านโคก",
+        "patient_count": 168
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "บ้านโคก",
+        "tambonname": "ม่วงเจ็ดต้น",
+        "patient_count": 265
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "คอรุม",
+        "patient_count": 44
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "ท่ามะเฟือง",
+        "patient_count": 111
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "ท่าสัก",
+        "patient_count": 38
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "นายาง",
+        "patient_count": 131
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "นาอิน",
+        "patient_count": 171
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "บ้านดารา",
+        "patient_count": 35
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "บ้านหม้อ",
+        "patient_count": 79
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "บ้านโคน",
+        "patient_count": 32
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "พญาแมน",
+        "patient_count": 120
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "ในเมือง",
+        "patient_count": 193
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "พิชัย",
+        "tambonname": "ไร่อ้อย",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ฟากท่า",
+        "tambonname": "บ้านเสี้ยว",
+        "patient_count": 64
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ฟากท่า",
+        "tambonname": "ฟากท่า",
+        "patient_count": 197
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ฟากท่า",
+        "tambonname": "สองคอน",
+        "patient_count": 109
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ฟากท่า",
+        "tambonname": "สองห้อง",
+        "patient_count": 38
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ลับแล",
+        "tambonname": "ชัยจุมพล",
+        "patient_count": 279
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ลับแล",
+        "tambonname": "ด่านแม่คำมัน",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ลับแล",
+        "tambonname": "ทุ่งยั้ง",
+        "patient_count": 37
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ลับแล",
+        "tambonname": "นานกกก",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ลับแล",
+        "tambonname": "ฝายหลวง",
+        "patient_count": 151
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ลับแล",
+        "tambonname": "แม่พูล",
+        "patient_count": 30
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "ลับแล",
+        "tambonname": "ไผ่ล้อม",
+        "patient_count": 115
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "ขุนฝาง",
+        "patient_count": 300
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "คุ้งตะเภา",
+        "patient_count": 170
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "งิ้วงาม",
+        "patient_count": 55
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "ถ้ำฉลอง",
+        "patient_count": 137
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "ท่าอิฐ",
+        "patient_count": 571
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "ท่าเสา",
+        "patient_count": 136
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "น้ำริด",
+        "patient_count": 77
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "บ้านด่าน",
+        "patient_count": 87
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "บ้านด่านนาขาม",
+        "patient_count": 13
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "บ้านเกาะ",
+        "patient_count": 108
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "ป่าเซ่า",
+        "patient_count": 54
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "ผาจุก",
+        "patient_count": 462
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "วังกะพี้",
+        "patient_count": 121
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "วังดิน",
+        "patient_count": 80
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "หาดกรวด",
+        "patient_count": 84
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "หาดงิ้ว",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "อุตรดิตถ์",
+        "ampurname": "เมืองอุตรดิตถ์",
+        "tambonname": "แสนตอ",
+        "patient_count": 66
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ชนแดน",
+        "tambonname": "ชนแดน",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ชนแดน",
+        "tambonname": "ดงขุย",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ชนแดน",
+        "tambonname": "บ้านกล้วย",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ชนแดน",
+        "tambonname": "พุทธบาท",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ชนแดน",
+        "tambonname": "ลาดแค",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ชนแดน",
+        "tambonname": "ศาลาลาย",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "น้ำหนาว",
+        "tambonname": "น้ำหนาว",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "น้ำหนาว",
+        "tambonname": "วังกวาง",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "น้ำหนาว",
+        "tambonname": "หลักด่าน",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "น้ำหนาว",
+        "tambonname": "โคกมน",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "บึงสามพัน",
+        "tambonname": "กันจุ",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "บึงสามพัน",
+        "tambonname": "ซับสมอทอด",
+        "patient_count": 28
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "บึงสามพัน",
+        "tambonname": "ซับไม้แดง",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "บึงสามพัน",
+        "tambonname": "วังพิกุล",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "บึงสามพัน",
+        "tambonname": "สระแก้ว",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "บึงสามพัน",
+        "tambonname": "หนองแจง",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วังโป่ง",
+        "tambonname": "ซับเปิบ",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วังโป่ง",
+        "tambonname": "ท้ายดง",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วังโป่ง",
+        "tambonname": "วังศาล",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วังโป่ง",
+        "tambonname": "วังหิน",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วังโป่ง",
+        "tambonname": "วังโป่ง",
+        "patient_count": 15
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "ซับน้อย",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "ซับสมบูรณ์",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "ท่าโรง",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "น้ำร้อน",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "บึงกระจับ",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "บ่อรัง",
+        "patient_count": 14
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "พุขาม",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "พุเตย",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "ภูน้ำหยด",
+        "patient_count": 20
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "ยางสาว",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "วังใหญ่",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "สระประดู่",
+        "patient_count": 9
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "สามแยก",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "วิเชียรบุรี",
+        "tambonname": "โคกปรง",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ศรีเทพ",
+        "tambonname": "คลองกระจัง",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ศรีเทพ",
+        "tambonname": "นาสนุ่น",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ศรีเทพ",
+        "tambonname": "ประดู่งาม",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ศรีเทพ",
+        "tambonname": "ศรีเทพ",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ศรีเทพ",
+        "tambonname": "สระกรวด",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ศรีเทพ",
+        "tambonname": "หนองย่างทอย",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "ศรีเทพ",
+        "tambonname": "โคกสะอาด",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "กองทูล",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "ท่าแดง",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "นาเฉลียง",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "บัววัฒนา",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "บ่อไทย",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "บ้านโภชน์",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "ยางงาม",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "วังท่าดี",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "วังโบสถ์",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "หนองไผ่",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "ห้วยโป่ง",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หนองไผ่",
+        "tambonname": "เพชรละคร",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "ช้างตะลูด",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "ท่าอิบุญ",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "น้ำก้อ",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "น้ำชุน",
+        "patient_count": 9
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "น้ำเฮี้ย",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "บุ่งคล้า",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "บุ่งน้ำเต้า",
+        "patient_count": 5
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "บ้านหวาย",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "บ้านโสก",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "บ้านไร่",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "ปากช่อง",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "ปากดุก",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "ฝายนาแซง",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "ลานบ่า",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "วัดป่า",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "สักหลง",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "หนองสว่าง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "หนองไขว่",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "หล่มสัก",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มสัก",
+        "tambonname": "ห้วยไร่",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "ตาดกลอย",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "นาซำ",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "นาเกาะ",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "นาแซง",
+        "patient_count": 20
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "บ้านเนิน",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "วังบาล",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "ศิลา",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "หล่มเก่า",
+        "tambonname": "หินฮาว",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เขาค้อ",
+        "tambonname": "ทุ่งสมอ",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เขาค้อ",
+        "tambonname": "ริมสีม่วง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เขาค้อ",
+        "tambonname": "หนองแม่นา",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เขาค้อ",
+        "tambonname": "เขาค้อ",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เขาค้อ",
+        "tambonname": "เข็กน้อย",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เขาค้อ",
+        "tambonname": "แคมป์สน",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ชอนไพร",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ดงมูลเหล็ก",
+        "patient_count": 4
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ตะเบาะ",
+        "patient_count": 17
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ท่าพล",
+        "patient_count": 11
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "นาป่า",
+        "patient_count": 9
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "นายม",
+        "patient_count": 15
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "น้ำร้อน",
+        "patient_count": 7
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "บ้านโคก",
+        "patient_count": 12
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "บ้านโตก",
+        "patient_count": 10
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ป่าเลา",
+        "patient_count": 8
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ระวิง",
+        "patient_count": 6
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "วังชมภู",
+        "patient_count": 2
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "สะเดียง",
+        "patient_count": 1
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ห้วยสะแก",
+        "patient_count": 3
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ห้วยใหญ่",
+        "patient_count": 8
+      },
+      {
+        "changwatname": "เพชรบูรณ์",
+        "ampurname": "เมืองเพชรบูรณ์",
+        "tambonname": "ในเมือง",
+        "patient_count": 26
+      }
+    ],
+    "totalCount": 11040
+  }
+]
