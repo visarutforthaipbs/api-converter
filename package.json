@@ -33,7 +33,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proxy": "node cors-proxy.js"
+    "proxy": "node cors-proxy.js",
+    "postinstall": "npm install --prefix api --production=false"
   },
   "eslintConfig": {
     "extends": [
@@ -53,8 +54,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://epid-odpc2.ddc.moph.go.th",
   "devDependencies": {
-    "cors-anywhere": "^0.4.4"
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
   }
 }

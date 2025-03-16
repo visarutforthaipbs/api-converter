@@ -4,6 +4,10 @@ import { fetchApiData, isValidUrl } from "./services/api";
 import DataTable from "./components/DataTable";
 import ApiEducation from "./components/ApiEducation";
 
+// Determine if we're in production (Vercel) or development
+const isProd = window.location.hostname !== "localhost";
+const proxyPrefix = isProd ? "/api/" : "http://localhost:8080/";
+
 function App() {
   // Update the URL to use a relative path when using the proxy setup
   const defaultUrl =
@@ -15,6 +19,7 @@ function App() {
   const [filename, setFilename] = useState<string>("my-cool-data");
   const [showProxyHelp, setShowProxyHelp] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("converter");
+  const [usingLocalProxy, setUsingLocalProxy] = useState<boolean>(false);
 
   const handleFetchData = async () => {
     if (!apiUrl) {
@@ -32,7 +37,11 @@ function App() {
     setShowProxyHelp(false);
 
     try {
-      const result = await fetchApiData(apiUrl);
+      // Use the URL as-is if it already includes our proxy
+      const urlToFetch =
+        apiUrl.includes(proxyPrefix) || usingLocalProxy ? apiUrl : apiUrl;
+
+      const result = await fetchApiData(urlToFetch);
       setData(Array.isArray(result) ? result : [result]);
       setError(null);
     } catch (err: any) {
@@ -56,6 +65,14 @@ function App() {
       ) {
         setError("เข้าไม่ได้น้าา~ API นี้อาจต้องมีสิทธิ์เข้าถึงพิเศษ 🔐👀");
         setShowProxyHelp(true);
+      } else if (
+        err?.message?.includes("HTML") ||
+        err?.message?.includes("html")
+      ) {
+        setError(
+          "API ส่งข้อมูลที่ไม่ใช่ JSON กลับมา (ได้ HTML แทน) ลองใช้ CORS proxy ด้านล่างนะจ้ะ 🔄"
+        );
+        setShowProxyHelp(true);
       } else {
         setError(
           `ดึงข้อมูลไม่ได้เลยอ่ะ: ${
@@ -72,12 +89,33 @@ function App() {
   };
 
   const useLocalProxy = () => {
-    // Check if the local proxy is already being used
-    if (apiUrl.includes("localhost:8080")) {
+    // If already using the proxy, don't modify
+    if (apiUrl.includes(`${proxyPrefix}`)) {
       return;
     }
 
-    setApiUrl(`http://localhost:8080/${apiUrl}`);
+    // Get URL without existing proxy prefixes if any
+    let cleanUrl = apiUrl;
+    const proxyPatterns = [
+      "http://localhost:8080/",
+      "https://corsproxy.io/?",
+      "https://cors-anywhere.herokuapp.com/",
+      "https://api.allorigins.win/raw?url=",
+    ];
+
+    for (const pattern of proxyPatterns) {
+      if (cleanUrl.includes(pattern)) {
+        cleanUrl = cleanUrl.replace(pattern, "");
+        if (pattern.includes("url=")) {
+          // Handle URL parameter style proxies
+          cleanUrl = decodeURIComponent(cleanUrl);
+        }
+        break;
+      }
+    }
+
+    setApiUrl(`${proxyPrefix}${cleanUrl}`);
+    setUsingLocalProxy(true);
   };
 
   return (
@@ -116,7 +154,10 @@ function App() {
                   type="text"
                   id="api-url"
                   value={apiUrl}
-                  onChange={(e) => setApiUrl(e.target.value)}
+                  onChange={(e) => {
+                    setApiUrl(e.target.value);
+                    setUsingLocalProxy(e.target.value.includes(proxyPrefix));
+                  }}
                   placeholder="ใส่ URL API ที่อยากแปลงตรงนี้เลย~"
                   className="input-field"
                 />
@@ -151,21 +192,43 @@ function App() {
                     </p>
                     <ol>
                       <li>
-                        รันโปรแกรม proxy ก่อนในเทอร์มินอลนะคะ:
-                        <pre>npm run proxy</pre>
+                        {usingLocalProxy ? (
+                          <span>
+                            กำลังใช้ CORS Proxy อยู่แล้ว แต่ยังไม่สำเร็จ ลองใช้
+                            API URL อื่นดูนะคะ
+                          </span>
+                        ) : (
+                          <>
+                            {isProd ? (
+                              <span>
+                                กดปุ่มด้านล่างเพื่อใช้ CORS Proxy
+                                ที่ติดตั้งมาพร้อมกับเว็บไซต์:
+                              </span>
+                            ) : (
+                              <>
+                                รันโปรแกรม proxy ก่อนในเทอร์มินอลนะคะ:
+                                <pre>npm run proxy</pre>
+                              </>
+                            )}
+                          </>
+                        )}
                       </li>
                       <li>
-                        แล้วกดปุ่มนี้เพื่อใช้ proxy:
+                        กดปุ่มนี้เพื่อใช้ Proxy:
                         <button
                           className="proxy-button"
                           onClick={useLocalProxy}
                         >
-                          ใช้ Local Proxy 🧙‍♀️
+                          ใช้ {isProd ? "Built-in" : "Local"} Proxy 🧙‍♀️
                         </button>
                       </li>
                       <li>
                         ถ้าข้อมูลเยอะเกิน ลองลดขนาดดู เช่น เปลี่ยนจาก
                         limit=50000 เป็น limit=1000 จะได้โหลดได้เร็วๆ
+                      </li>
+                      <li>
+                        ลองดู API ตัวอย่างได้ในแท็บ{" "}
+                        <strong>"เรียนรู้เรื่อง API"</strong> ด้านบนนะ
                       </li>
                     </ol>
                   </div>

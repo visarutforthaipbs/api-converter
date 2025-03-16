@@ -6,9 +6,32 @@ import axios from "axios";
  * @returns Properly structured array for processing
  */
 const normalizeApiResponse = (responseData: any): any[] => {
+  // Check if the response is HTML instead of JSON
+  if (
+    typeof responseData === "string" &&
+    (responseData.trim().startsWith("<!DOCTYPE") ||
+      responseData.trim().startsWith("<html"))
+  ) {
+    console.error("Received HTML response instead of JSON data");
+    throw new Error(
+      "Invalid response format: Received HTML instead of data. Try using a different API endpoint or a CORS proxy."
+    );
+  }
+
   // Check if the response has a 'data' property that's an array or string
   if (responseData && responseData.data) {
     if (typeof responseData.data === "string") {
+      // If the data property contains HTML, throw an error
+      if (
+        responseData.data.trim().startsWith("<!DOCTYPE") ||
+        responseData.data.trim().startsWith("<html")
+      ) {
+        console.error("HTML found in response.data");
+        throw new Error(
+          "Invalid response format: HTML content detected in data property."
+        );
+      }
+
       // If data is a JSON string, parse it
       try {
         return JSON.parse(responseData.data);
@@ -51,15 +74,41 @@ export const fetchApiData = async (url: string): Promise<any[]> => {
     }
   }
 
+  // Updated list of reliable CORS proxies with better options
+  const CORS_PROXIES = [
+    "https://api.allorigins.win/raw?url=",
+    "https://corsproxy.io/?",
+    "https://proxy.cors.sh/",
+    "https://cors-anywhere.herokuapp.com/",
+  ];
+
+  // Try direct request first (might work for CORS-enabled APIs)
+  try {
+    console.log("Trying direct request without proxy");
+    const response = await axios.get(url, {
+      timeout: 10000, // 10 second timeout
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    // Check if we got HTML instead of JSON
+    if (
+      typeof response.data === "string" &&
+      (response.data.includes("<!DOCTYPE") || response.data.includes("<html"))
+    ) {
+      console.log("Direct request returned HTML, trying proxies...");
+    } else {
+      // Success! Return the data
+      return normalizeApiResponse(response.data);
+    }
+  } catch (error: any) {
+    console.log("Direct request failed, trying proxies:", error.message);
+    // Continue to proxy attempts
+  }
+
   // Try each proxy in sequence until one works
   let lastError: any = null;
-
-  // List of available CORS proxies to try
-  const CORS_PROXIES = [
-    "https://corsproxy.io/?",
-    "https://cors-anywhere.herokuapp.com/",
-    "https://api.allorigins.win/raw?url=",
-  ];
 
   for (const proxy of CORS_PROXIES) {
     try {
@@ -67,11 +116,21 @@ export const fetchApiData = async (url: string): Promise<any[]> => {
       console.log(`Trying proxy: ${proxy}`);
 
       const response = await axios.get(proxyUrl, {
-        timeout: 30000, // 30 second timeout
+        timeout: 15000, // 15 second timeout
         headers: {
           "X-Requested-With": "XMLHttpRequest",
+          Accept: "application/json",
         },
       });
+
+      // Skip this proxy if it returned HTML
+      if (
+        typeof response.data === "string" &&
+        (response.data.includes("<!DOCTYPE") || response.data.includes("<html"))
+      ) {
+        console.log(`Proxy ${proxy} returned HTML, trying next...`);
+        continue;
+      }
 
       return normalizeApiResponse(response.data);
     } catch (error) {
@@ -80,23 +139,14 @@ export const fetchApiData = async (url: string): Promise<any[]> => {
     }
   }
 
-  // If we're here, none of the proxies worked
-  // Try a relative URL for the development proxy configured in package.json
-  try {
-    // Extract the path from the URL to use with the development proxy
-    const originalUrl = new URL(url);
-    const relativePath = originalUrl.pathname + originalUrl.search;
-
-    console.log(`Trying development proxy with path: ${relativePath}`);
-    const response = await axios.get(relativePath);
-    return normalizeApiResponse(response.data);
-  } catch (error) {
-    console.error("Error using development proxy:", error);
-  }
-
-  // If all attempts fail, throw the last error
+  // If all attempts fail, throw a more helpful error message
   console.error("All proxy attempts failed");
-  throw lastError || new Error("Failed to fetch data from all proxies");
+  throw (
+    lastError ||
+    new Error(
+      "Unable to access API data. This might be due to CORS restrictions. Try using a different API endpoint or use the app locally with the proxy server."
+    )
+  );
 };
 
 /**

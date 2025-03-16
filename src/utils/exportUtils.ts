@@ -3,6 +3,25 @@ import * as Papa from "papaparse";
 import FileSaver from "file-saver";
 
 /**
+ * Checks if a value looks like HTML
+ * @param value The value to check
+ * @returns Boolean indicating if it looks like HTML
+ */
+const isLikelyHTML = (value: any): boolean => {
+  if (typeof value !== "string") return false;
+
+  // Trim the string and check common HTML signatures
+  const trimmed = value.trim();
+  return (
+    trimmed.startsWith("<!DOCTYPE") ||
+    trimmed.startsWith("<html") ||
+    (trimmed.startsWith("<") &&
+      trimmed.includes("<head") &&
+      trimmed.includes("<body"))
+  );
+};
+
+/**
  * Pre-processes data before flattening to handle special API response structures
  * @param data The data to pre-process
  * @returns Processed data ready for flattening
@@ -10,6 +29,14 @@ import FileSaver from "file-saver";
 const preprocessData = (data: any[]): any[] => {
   // If there's no data, return empty array
   if (!data || data.length === 0) return [];
+
+  // Check if we received HTML instead of data
+  if (data.length === 1 && isLikelyHTML(data[0])) {
+    console.error("Received HTML instead of data. Export aborted.");
+    throw new Error(
+      "Invalid data format: HTML received instead of data. Please check the API URL."
+    );
+  }
 
   // Special handling for this specific API structure
   // Check if we have an object with 'data' property containing stringified JSON
@@ -19,7 +46,21 @@ const preprocessData = (data: any[]): any[] => {
     // Log the structure to help with debugging
     console.log("Data structure:", Object.keys(firstItem).join(", "));
 
+    // Check if the first item is HTML or contains HTML
+    if (isLikelyHTML(firstItem)) {
+      console.error("HTML detected in data object");
+      throw new Error("Invalid data format: HTML content detected.");
+    }
+
     if (firstItem.data && typeof firstItem.data === "string") {
+      // Check for HTML in the data property
+      if (isLikelyHTML(firstItem.data)) {
+        console.error("HTML content detected in data property");
+        throw new Error(
+          "Invalid data format: HTML content found in data property."
+        );
+      }
+
       try {
         // Try to parse the nested JSON string
         const parsed = JSON.parse(firstItem.data);
@@ -64,52 +105,72 @@ const preprocessData = (data: any[]): any[] => {
  * @returns Flattened array of objects
  */
 const flattenData = (data: any[]): any[] => {
-  // First preprocess the data to handle special API response structures
-  const preprocessedData = preprocessData(data);
+  try {
+    // First preprocess the data to handle special API response structures
+    const preprocessedData = preprocessData(data);
 
-  if (!Array.isArray(preprocessedData) || preprocessedData.length === 0) {
-    console.warn("No data to flatten after preprocessing");
-    return [];
-  }
+    if (!Array.isArray(preprocessedData) || preprocessedData.length === 0) {
+      console.warn("No data to flatten after preprocessing");
+      return [];
+    }
 
-  console.log("Flattening", preprocessedData.length, "items");
+    console.log("Flattening", preprocessedData.length, "items");
 
-  return preprocessedData.map((item) => {
-    const flattenedItem: Record<string, any> = {};
-
-    // Process each field in the item
-    const processItem = (obj: any, prefix = "") => {
-      for (const key in obj) {
-        const value = obj[key];
-        const newKey = prefix ? `${prefix}.${key}` : key;
-
-        if (value === null || value === undefined) {
-          flattenedItem[newKey] = "";
-        } else if (typeof value === "object" && !Array.isArray(value)) {
-          // Recursively process nested objects
-          processItem(value, newKey);
-        } else if (Array.isArray(value)) {
-          // For arrays, convert to a more readable string format
-          // or create separate columns for simple arrays
-          if (value.length === 0) {
-            flattenedItem[newKey] = "";
-          } else if (typeof value[0] === "object") {
-            // Complex arrays (of objects) get stringified with indentation
-            flattenedItem[newKey] = JSON.stringify(value, null, 2);
-          } else {
-            // Simple arrays (of primitives) are joined with commas
-            flattenedItem[newKey] = value.join(", ");
-          }
-        } else {
-          // Primitive values
-          flattenedItem[newKey] = value;
-        }
+    return preprocessedData.map((item) => {
+      // Check for HTML content
+      if (isLikelyHTML(item)) {
+        throw new Error("HTML content detected in data being flattened.");
       }
-    };
 
-    processItem(item);
-    return flattenedItem;
-  });
+      const flattenedItem: Record<string, any> = {};
+
+      // Process each field in the item
+      const processItem = (obj: any, prefix = "") => {
+        for (const key in obj) {
+          const value = obj[key];
+          const newKey = prefix ? `${prefix}.${key}` : key;
+
+          if (value === null || value === undefined) {
+            flattenedItem[newKey] = "";
+          } else if (typeof value === "object" && !Array.isArray(value)) {
+            // Recursively process nested objects
+            processItem(value, newKey);
+          } else if (Array.isArray(value)) {
+            // For arrays, convert to a more readable string format
+            // or create separate columns for simple arrays
+            if (value.length === 0) {
+              flattenedItem[newKey] = "";
+            } else if (typeof value[0] === "object") {
+              // Complex arrays (of objects) get stringified with indentation
+              flattenedItem[newKey] = JSON.stringify(value, null, 2);
+            } else {
+              // Simple arrays (of primitives) are joined with commas
+              flattenedItem[newKey] = value.join(", ");
+            }
+          } else {
+            // Check for HTML in string values
+            if (
+              typeof value === "string" &&
+              value.length > 20 &&
+              isLikelyHTML(value)
+            ) {
+              console.warn(`HTML content detected in field "${newKey}"`);
+              flattenedItem[newKey] = "HTML_CONTENT_REMOVED";
+            } else {
+              // Primitive values
+              flattenedItem[newKey] = value;
+            }
+          }
+        }
+      };
+
+      processItem(item);
+      return flattenedItem;
+    });
+  } catch (error) {
+    console.error("Error in flattenData:", error);
+    throw error;
+  }
 };
 
 /**
@@ -119,10 +180,22 @@ const flattenData = (data: any[]): any[] => {
  */
 export const exportToCSV = (data: any[], filename: string): void => {
   try {
+    // Global sanity check for HTML content
+    if (data.length > 0 && isLikelyHTML(data[0])) {
+      console.error("HTML detected in export data");
+      alert(
+        "Unable to export: Invalid data format detected. The API returned HTML instead of data."
+      );
+      return;
+    }
+
     const flattenedData = flattenData(data);
 
     if (flattenedData.length === 0) {
       console.error("No data to export after flattening");
+      alert(
+        "No valid data to export. Please try another API or check the response format."
+      );
       return;
     }
 
@@ -158,6 +231,11 @@ export const exportToCSV = (data: any[], filename: string): void => {
     );
   } catch (error) {
     console.error("Error exporting to CSV:", error);
+    alert(
+      `Export failed: ${
+        error instanceof Error ? error.message : "Unknown error"
+      }`
+    );
   }
 };
 
