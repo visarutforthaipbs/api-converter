@@ -94,7 +94,6 @@ export const testDirectProxy = async (proxy: string): Promise<boolean> => {
   try {
     // Using a test target that should return quickly
     const testUrl = "https://httpbin.org/ip";
-    const proxyUrl = `http://${proxy}`;
 
     // Set very short timeout for testing
     const response = await fetch(testUrl, {
