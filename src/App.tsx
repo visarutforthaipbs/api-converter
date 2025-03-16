@@ -13,10 +13,11 @@ function App() {
   const initialProxyApplied = useRef(false);
 
   // Update the URL to use a relative path when using the proxy setup
-  const defaultUrl =
-    "https://epid-odpc2.ddc.moph.go.th/haze-r2/api/patient-group-location?limit=50000";
-  const [apiUrl, setApiUrl] = useState<string>("");
-  const [filename, setFilename] = useState<string>("");
+  // Set initial apiUrl state to use this example URL
+  const [apiUrl, setApiUrl] = useState<string>(
+    "https://epid-odpc2.ddc.moph.go.th/haze-r2/api/patient-group-location?limit=50000"
+  );
+  const [filename, setFilename] = useState<string>("my-cool-data");
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
