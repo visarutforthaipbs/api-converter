@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { fetchApiData, isValidUrl } from "./services/api";
 import DataTable from "./components/DataTable";
@@ -9,6 +9,9 @@ const isProd = window.location.hostname !== "localhost";
 const proxyPrefix = isProd ? "/api/" : "http://localhost:8080/";
 
 function App() {
+  // Reference to track initial proxy application
+  const initialProxyApplied = useRef(false);
+
   // Update the URL to use a relative path when using the proxy setup
   const defaultUrl =
     "https://epid-odpc2.ddc.moph.go.th/haze-r2/api/patient-group-location?limit=50000";
@@ -23,14 +26,21 @@ function App() {
 
   // Effect to automatically add proxy in production
   useEffect(() => {
-    if (isProd && !apiUrl.includes(proxyPrefix)) {
+    // Only run once on component mount
+    if (
+      !initialProxyApplied.current &&
+      isProd &&
+      !apiUrl.includes(proxyPrefix)
+    ) {
+      initialProxyApplied.current = true; // Mark as applied
+
       // Apply proxy prefix automatically in production
       const cleanedUrl = cleanUrlFromProxies(apiUrl);
       const proxyUrl = `${proxyPrefix}${cleanedUrl}`;
       console.log("Auto-applying proxy in production:", proxyUrl);
       setApiUrl(proxyUrl);
     }
-  }, []); // Run once on component mount
+  }, [apiUrl, proxyPrefix]); // Include dependencies but use ref to prevent loops
 
   const handleFetchData = async () => {
     if (!apiUrl) {
