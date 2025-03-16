@@ -101,8 +101,20 @@ export const fetchApiData = async (url: string): Promise<any[]> => {
 
   // In production, we should only use our own proxy
   if (isProd) {
-    // Construct proxy URL
-    const proxyUrl = `/api/${url}`;
+    // Make sure the URL has a properly formatted protocol
+    let proxyUrl = url;
+
+    // Fix the common protocol formatting issue (https:/ instead of https://)
+    if (proxyUrl.match(/^https?:\/[^/]/)) {
+      proxyUrl = proxyUrl.replace(/^(https?):\/([^/])/, "$1://$2");
+      console.log("Fixed malformed protocol:", proxyUrl);
+    }
+
+    // Construct proxy URL, ensuring we don't duplicate /api/
+    if (!proxyUrl.startsWith("/api/")) {
+      proxyUrl = `/api/${proxyUrl}`;
+    }
+
     console.log(
       "Production environment detected, using our proxy directly:",
       proxyUrl

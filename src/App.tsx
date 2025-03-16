@@ -58,17 +58,13 @@ function App() {
     setShowProxyHelp(false);
 
     try {
-      // Ensure we're using our proxy in production
-      let urlToFetch = apiUrl;
+      // Clean and validate the URL first
+      let urlToFetch = cleanUrlFromProxies(apiUrl);
 
-      // If we're in production and the URL doesn't have our proxy prefix
-      if (isProd && !urlToFetch.includes(proxyPrefix)) {
-        // Clean the URL from other proxy prefixes first
-        urlToFetch = cleanUrlFromProxies(urlToFetch);
-        // Add our proxy prefix
-        urlToFetch = `${proxyPrefix}${urlToFetch}`;
-        console.log("Using proxy URL in production:", urlToFetch);
-      }
+      console.log("Cleaned URL for fetching:", urlToFetch);
+
+      // In production, our API service will handle adding the proxy
+      // We don't need to modify the URL here as the API service will do that
 
       const result = await fetchApiData(urlToFetch);
       setData(Array.isArray(result) ? result : [result]);

@@ -40,13 +40,26 @@ app.get("*", async (req, res) => {
       console.log(`Decoded URL: ${targetUrl}`);
     }
 
-    // Fix malformed protocol (https:/ instead of https://)
-    if (targetUrl.match(/^https?:\/[^\/]/)) {
-      targetUrl = targetUrl.replace(/^(https?):\/([^\/])/, "$1://$2");
-      console.log(`Fixed malformed protocol: ${targetUrl}`);
+    // Fix missing protocols (no http:// or https://)
+    if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+      // Try to extract protocol from malformed URLs like "https:/example.com"
+      const protocolMatch = targetUrl.match(/^(https?):\/([^/])/);
+      if (protocolMatch) {
+        // Fix malformed protocol (https:/ instead of https://)
+        targetUrl = targetUrl.replace(/^(https?):\/([^/])/, "$1://$2");
+        console.log(`Fixed malformed protocol: ${targetUrl}`);
+      }
+      // Handle URLs with no protocol at all
+      else if (!targetUrl.includes("://")) {
+        console.log(`Adding https:// to URL without protocol: ${targetUrl}`);
+        targetUrl = `https://${targetUrl}`;
+      }
     }
 
-    // Ensure the URL has a protocol
+    // Handle double slashes after protocol (https:////example.com)
+    targetUrl = targetUrl.replace(/(https?:\/\/)\/+/g, "$1");
+
+    // Ensure the URL has a protocol now
     if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
       console.log(`Invalid URL (no protocol): ${targetUrl}`);
       return res.status(400).json({
