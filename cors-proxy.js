@@ -59,13 +59,6 @@ app.get("*", async (req, res) => {
     // Handle double slashes after protocol (https:////example.com)
     targetUrl = targetUrl.replace(/(https?:\/\/)\/+/g, "$1");
 
-    // Fix missing slashes in paths - Look for segments without a slash between them
-    // For example: domain.com/pathwithoutslash -> domain.com/path/without/slash
-    targetUrl = targetUrl.replace(
-      /(\.[a-z]{2,}\/[a-z0-9_-]+)([a-z0-9])/gi,
-      "$1/$2"
-    );
-
     // Fix specific path patterns we know about
     if (targetUrl.includes("/haze-r2") && !targetUrl.includes("/haze-r2/")) {
       targetUrl = targetUrl.replace("/haze-r2", "/haze-r2/");

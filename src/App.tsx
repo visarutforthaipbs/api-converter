@@ -147,14 +147,7 @@ function App() {
       cleanUrl = cleanUrl.replace(/^(https?):\/([^/])/, "$1://$2");
     }
 
-    // Fix missing slashes in paths - Look for segments without a slash between them
-    // This regex finds domain.com/pathwithout/slash pattern and fixes it
-    cleanUrl = cleanUrl.replace(
-      /(\.[a-z]{2,}\/[a-z0-9_-]+)([a-z0-9])/gi,
-      "$1/$2"
-    );
-
-    // Double-check common API paths that might be missing slashes
+    // Fix specific path patterns we know about
     if (cleanUrl.includes("/haze-r2") && !cleanUrl.includes("/haze-r2/")) {
       cleanUrl = cleanUrl.replace("/haze-r2", "/haze-r2/");
     }
