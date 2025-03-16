@@ -23,27 +23,53 @@ app.get("/", (req, res) => {
 
 // Main proxy endpoint - handles any URL passed after the domain
 app.get("*", async (req, res) => {
-  // Skip the initial slash to get the URL
-  let targetUrl = req.url.slice(1);
-
-  // Handle case when URL might be double-encoded (from certain clients)
-  if (
-    targetUrl.startsWith("http%3A%2F%2F") ||
-    targetUrl.startsWith("https%3A%2F%2F")
-  ) {
-    targetUrl = decodeURIComponent(targetUrl);
-  }
-
-  // Ensure the URL has a protocol
-  if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
-    return res.status(400).json({
-      error: "Invalid URL. URL must start with http:// or https://",
-    });
-  }
-
-  console.log(`Proxying request to: ${targetUrl}`);
-
   try {
+    // Skip the initial slash to get the URL
+    let targetUrl = req.url.slice(1);
+
+    // Debug the received URL
+    console.log(`Original request URL: ${req.url}`);
+    console.log(`Initial target URL: ${targetUrl}`);
+
+    // Handle case when URL might be double-encoded (from certain clients)
+    if (
+      targetUrl.startsWith("http%3A%2F%2F") ||
+      targetUrl.startsWith("https%3A%2F%2F")
+    ) {
+      targetUrl = decodeURIComponent(targetUrl);
+      console.log(`Decoded URL: ${targetUrl}`);
+    }
+
+    // Fix malformed protocol (https:/ instead of https://)
+    if (targetUrl.match(/^https?:\/[^\/]/)) {
+      targetUrl = targetUrl.replace(/^(https?):\/([^\/])/, "$1://$2");
+      console.log(`Fixed malformed protocol: ${targetUrl}`);
+    }
+
+    // Ensure the URL has a protocol
+    if (!targetUrl.startsWith("http://") && !targetUrl.startsWith("https://")) {
+      console.log(`Invalid URL (no protocol): ${targetUrl}`);
+      return res.status(400).json({
+        error: "Invalid URL. URL must start with http:// or https://",
+        receivedUrl: targetUrl,
+      });
+    }
+
+    // Validate URL structure
+    try {
+      new URL(targetUrl);
+    } catch (error) {
+      console.log(
+        `Invalid URL structure: ${targetUrl}, Error: ${error.message}`
+      );
+      return res.status(400).json({
+        error: `Invalid URL structure: ${error.message}`,
+        receivedUrl: targetUrl,
+      });
+    }
+
+    console.log(`Proxying request to: ${targetUrl}`);
+
     const response = await axios({
       url: targetUrl,
       method: req.method,
@@ -57,7 +83,7 @@ app.get("*", async (req, res) => {
         }),
       },
       // Add a reasonable timeout
-      timeout: 20000,
+      timeout: 30000, // Increased to 30 seconds
       // Handle redirects
       maxRedirects: 5,
       // Forward query parameters
@@ -107,7 +133,8 @@ app.get("*", async (req, res) => {
       `Successfully proxied ${targetUrl}, status: ${response.status}`
     );
   } catch (error) {
-    console.error(`Error proxying ${targetUrl}:`, error.message);
+    console.error(`Error proxying request:`, error.message);
+    const targetUrl = req.url.slice(1);
 
     // Format error message
     let errorMessage = "An error occurred while fetching the data";
@@ -118,6 +145,10 @@ app.get("*", async (req, res) => {
       // that falls out of the range of 2xx
       statusCode = error.response.status;
       errorMessage = `Target server responded with status ${statusCode}`;
+      console.error(`Target server response error:`, {
+        status: statusCode,
+        headers: error.response.headers,
+      });
 
       // Forward the response from the target server
       const contentType =
@@ -129,22 +160,26 @@ app.get("*", async (req, res) => {
           return res.status(statusCode).json(jsonData);
         } catch (parseError) {
           // Unable to parse as JSON, continue with default error handling
+          console.error(`Error parsing JSON response: ${parseError.message}`);
         }
       }
     } else if (error.request) {
       // The request was made but no response was received
       statusCode = 504; // Gateway Timeout
       errorMessage = "No response received from target server";
+      console.error(`No response from target server for: ${targetUrl}`);
     } else {
       // Something happened in setting up the request
       statusCode = 400;
       errorMessage = error.message;
+      console.error(`Request setup error for ${targetUrl}: ${error.message}`);
     }
 
     // Send error response
     res.status(statusCode).json({
       error: errorMessage,
       code: statusCode,
+      url: targetUrl,
     });
   }
 });

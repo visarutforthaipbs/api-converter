@@ -97,38 +97,6 @@ function App() {
     }
   };
 
-  const useLocalProxy = () => {
-    // If already using the proxy, don't modify
-    if (apiUrl.includes(`${proxyPrefix}`)) {
-      return;
-    }
-
-    // Get URL without existing proxy prefixes if any
-    let cleanUrl = apiUrl;
-    const proxyPatterns = [
-      "http://localhost:8080/",
-      "/api/",
-      "https://corsproxy.io/?",
-      "https://cors-anywhere.herokuapp.com/",
-      "https://api.allorigins.win/raw?url=",
-      "https://proxy.cors.sh/",
-    ];
-
-    for (const pattern of proxyPatterns) {
-      if (cleanUrl.includes(pattern)) {
-        cleanUrl = cleanUrl.replace(pattern, "");
-        if (pattern.includes("url=")) {
-          // Handle URL parameter style proxies
-          cleanUrl = decodeURIComponent(cleanUrl);
-        }
-        break;
-      }
-    }
-
-    setApiUrl(`${proxyPrefix}${cleanUrl}`);
-    setUsingLocalProxy(true);
-  };
-
   const cleanUrlFromProxies = (url: string): string => {
     // Get URL without existing proxy prefixes if any
     let cleanUrl = url;
@@ -152,7 +120,48 @@ function App() {
       }
     }
 
+    // Make sure the URL has a proper protocol
+    if (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+      console.error("URL missing protocol after cleaning:", cleanUrl);
+      // Default to https if no protocol
+      cleanUrl = "https://" + cleanUrl;
+    }
+
+    // Fix malformed protocol (https:/ instead of https://)
+    if (cleanUrl.match(/^https?:\/[^\/]/)) {
+      cleanUrl = cleanUrl.replace(/^(https?):\/([^\/])/, "$1://$2");
+    }
+
+    // Ensure the URL is properly formed
+    try {
+      new URL(cleanUrl);
+    } catch (error) {
+      console.error("Invalid URL after cleaning:", cleanUrl, error);
+    }
+
     return cleanUrl;
+  };
+
+  const useLocalProxy = () => {
+    try {
+      // If already using the proxy, don't modify
+      if (apiUrl.includes(`${proxyPrefix}`)) {
+        return;
+      }
+
+      // Clean the URL first
+      let cleanUrl = cleanUrlFromProxies(apiUrl);
+
+      // Construct new URL with proxy
+      const newUrl = `${proxyPrefix}${cleanUrl}`;
+      console.log("Constructed proxy URL:", newUrl);
+
+      setApiUrl(newUrl);
+      setUsingLocalProxy(true);
+    } catch (error) {
+      console.error("Error setting up proxy URL:", error);
+      setError("เกิดข้อผิดพลาดในการตั้งค่า Proxy URL โปรดลองอีกครั้ง");
+    }
   };
 
   return (
