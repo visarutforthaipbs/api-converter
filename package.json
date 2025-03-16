@@ -33,8 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "proxy": "node cors-proxy.js",
-    "postinstall": "npm install --prefix api --production=false"
+    "proxy": "node cors-proxy.js"
   },
   "eslintConfig": {
     "extends": [
