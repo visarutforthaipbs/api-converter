@@ -1,63 +1,6 @@
 import axios from "axios";
 import { fetchThroughThaiProxy, isThaiGovernmentAPI } from "./thai-proxies";
 
-/**
- * Normalizes API response data structure
- * @param responseData The raw API response data
- * @returns Properly structured array for processing
- */
-const normalizeApiResponse = (responseData: any): any[] => {
-  // Check if the response is HTML instead of JSON
-  if (
-    typeof responseData === "string" &&
-    (responseData.trim().startsWith("<!DOCTYPE") ||
-      responseData.trim().startsWith("<html"))
-  ) {
-    console.error("Received HTML response instead of JSON data");
-    throw new Error(
-      "Invalid response format: Received HTML instead of data. Try using a different API endpoint or a CORS proxy."
-    );
-  }
-
-  // Check if the response has a 'data' property that's an array or string
-  if (responseData && responseData.data) {
-    if (typeof responseData.data === "string") {
-      // If the data property contains HTML, throw an error
-      if (
-        responseData.data.trim().startsWith("<!DOCTYPE") ||
-        responseData.data.trim().startsWith("<html")
-      ) {
-        console.error("HTML found in response.data");
-        throw new Error(
-          "Invalid response format: HTML content detected in data property."
-        );
-      }
-
-      // If data is a JSON string, parse it
-      try {
-        return JSON.parse(responseData.data);
-      } catch (error) {
-        console.error("Error parsing data string:", error);
-        return [];
-      }
-    } else if (Array.isArray(responseData.data)) {
-      // If data is already an array, return it
-      return responseData.data;
-    }
-  }
-
-  // If responseData itself is an array, return it
-  if (Array.isArray(responseData)) {
-    return responseData;
-  }
-
-  // Handle case where the entire response is one object with nested data
-  console.log("API response structure:", Object.keys(responseData).join(", "));
-
-  // If we can't determine the structure, return as-is wrapped in array if needed
-  return Array.isArray(responseData) ? responseData : [responseData];
-};
-
 interface FetchOptions {
   useThaiProxy?: boolean;
 }

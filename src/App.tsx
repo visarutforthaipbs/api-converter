@@ -15,11 +15,11 @@ function App() {
   // Update the URL to use a relative path when using the proxy setup
   const defaultUrl =
     "https://epid-odpc2.ddc.moph.go.th/haze-r2/api/patient-group-location?limit=50000";
-  const [apiUrl, setApiUrl] = useState<string>(defaultUrl);
+  const [apiUrl, setApiUrl] = useState<string>("");
+  const [filename, setFilename] = useState<string>("");
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [filename, setFilename] = useState<string>("my-cool-data");
   const [showProxyHelp, setShowProxyHelp] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<string>("converter");
   const [usingLocalProxy, setUsingLocalProxy] = useState<boolean>(isProd); // Auto enable proxy in production
@@ -107,21 +107,6 @@ function App() {
       setUsingThaiProxy(false);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Reset proxy status when user changes URL
-    if (e.target.value !== apiUrl) {
-      setUsingLocalProxy(isProd); // In production, keep proxy enabled
-
-      // If in production and changing URL, ensure any new URL gets proxy prefix
-      if (isProd) {
-        // Don't add prefix here, it will be added when fetching
-        setApiUrl(e.target.value);
-      } else {
-        setApiUrl(e.target.value);
-      }
     }
   };
 
