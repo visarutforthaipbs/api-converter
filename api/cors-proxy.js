@@ -31,6 +31,12 @@ module.exports = async function handler(req, res) {
     return res.status(200).end();
   }
 
+  // Log request details for debugging
+  console.log("Request method:", req.method);
+  console.log("Request URL:", req.url);
+  console.log("Request query:", JSON.stringify(req.query));
+  console.log("Request headers:", JSON.stringify(req.headers));
+
   let targetUrl = ""; // Initialize targetUrl for scope
   let isThaiAPI = false; // Initialize isThaiAPI for scope
 
@@ -100,7 +106,7 @@ module.exports = async function handler(req, res) {
       targetUrl = targetUrl.replace("/haze-r2", "/haze-r2/");
     }
 
-    // Add /api after /haze-r2/ if it's not there
+    // Add /api after /haze-r2/ if it's not there and the path contains patient-group-location
     if (
       targetUrl.includes("/haze-r2/") &&
       !targetUrl.includes("/haze-r2/api/")
@@ -130,6 +136,38 @@ module.exports = async function handler(req, res) {
 
     console.log(`Proxying request to: ${targetUrl}`);
 
+    // Try to make a direct request to the Thai government API first
+    // to check if it's accessible and get more diagnostic information
+    if (targetUrl.includes("epid-odpc2.ddc.moph.go.th")) {
+      try {
+        console.log("Testing direct access to the Thai government API...");
+        const testResponse = await axios({
+          url: targetUrl,
+          method: "HEAD",
+          timeout: 10000,
+          headers: {
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            Accept: "application/json",
+            "Accept-Language": "th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7",
+          },
+          validateStatus: () => true, // Accept any status code for diagnostic purposes
+        });
+        console.log("Direct API test result:", {
+          status: testResponse.status,
+          headers: testResponse.headers,
+        });
+      } catch (testError) {
+        console.log("Direct API test failed:", testError.message);
+        if (testError.response) {
+          console.log("Test error response:", {
+            status: testError.response.status,
+            headers: testError.response.headers,
+          });
+        }
+      }
+    }
+
     // Check if this is a Thai government API
     isThaiAPI = isThaiGovernmentAPI(targetUrl);
     if (isThaiAPI) {
@@ -150,7 +188,25 @@ module.exports = async function handler(req, res) {
       headers["Origin"] = new URL(targetUrl).origin;
       headers["Referer"] = targetUrl;
       headers["Accept-Language"] = "th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7";
+
+      // Add more headers that a browser would typically send
+      headers["Cache-Control"] = "no-cache";
+      headers["Pragma"] = "no-cache";
+      headers["sec-ch-ua"] =
+        '"Not A(Brand";v="99", "Google Chrome";v="121", "Chromium";v="121"';
+      headers["sec-ch-ua-mobile"] = "?0";
+      headers["sec-ch-ua-platform"] = '"Windows"';
+      headers["Sec-Fetch-Dest"] = "empty";
+      headers["Sec-Fetch-Mode"] = "cors";
+      headers["Sec-Fetch-Site"] = "same-origin";
     }
+
+    // Log the final request configuration
+    console.log("Final request configuration:", {
+      url: targetUrl,
+      method: req.method,
+      headers: headers,
+    });
 
     const response = await axios({
       url: targetUrl,
@@ -165,6 +221,10 @@ module.exports = async function handler(req, res) {
       // Handle response as arraybuffer to support any content type
       responseType: "arraybuffer",
     });
+
+    // Log response details
+    console.log("Response status:", response.status);
+    console.log("Response headers:", JSON.stringify(response.headers));
 
     // Get content type to properly forward it
     const contentType = response.headers["content-type"] || "application/json";
@@ -209,6 +269,23 @@ module.exports = async function handler(req, res) {
   } catch (error) {
     console.error(`Error proxying request:`, error.message);
 
+    // Log detailed error information
+    if (error.response) {
+      console.error("Response error details:", {
+        status: error.response.status,
+        headers: error.response.headers,
+        data: error.response.data
+          ? error.response.data.toString("utf8").substring(0, 200)
+          : null,
+      });
+    } else if (error.request) {
+      console.error("Request error details:", {
+        method: error.request.method,
+        path: error.request.path,
+        host: error.request.host,
+      });
+    }
+
     // Format error message
     let errorMessage = "An error occurred while fetching the data";
     let statusCode = 500;
@@ -230,7 +307,11 @@ module.exports = async function handler(req, res) {
       if (contentType.includes("application/json")) {
         try {
           const jsonData = JSON.parse(error.response.data.toString("utf8"));
-          return res.status(statusCode).json(jsonData);
+          return res.status(statusCode).json({
+            ...jsonData,
+            proxied: true,
+            originalUrl: targetUrl,
+          });
         } catch (parseError) {
           // Unable to parse as JSON, continue with default error handling
           console.error(`Error parsing JSON response: ${parseError.message}`);
@@ -250,13 +331,15 @@ module.exports = async function handler(req, res) {
       console.error(`Request setup error for ${targetUrl}: ${error.message}`);
     }
 
-    // Send error response
-    res.status(statusCode).json({
+    // Send error response with more details
+    return res.status(statusCode).json({
       error: errorMessage,
-      code: statusCode,
-      url: targetUrl,
-      originalUrl: req.url,
-      isThaiAPI: isThaiAPI,
+      originalUrl: targetUrl,
+      serverInfo: {
+        timestamp: new Date().toISOString(),
+        nodeVersion: process.version,
+        proxied: true,
+      },
     });
   }
 };
