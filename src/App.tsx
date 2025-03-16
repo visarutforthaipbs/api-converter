@@ -37,9 +37,18 @@ function App() {
     setShowProxyHelp(false);
 
     try {
-      // Use the URL as-is if it already includes our proxy
-      const urlToFetch =
-        apiUrl.includes(proxyPrefix) || usingLocalProxy ? apiUrl : apiUrl;
+      // First, ensure we're using the correct proxy when in production
+      // Always use our proxy in production environment for CORS handling
+      let urlToFetch = apiUrl;
+
+      // Skip if the URL already includes our proxy prefix
+      if (!urlToFetch.includes(proxyPrefix)) {
+        // Clean the URL from other proxy prefixes
+        urlToFetch = cleanUrlFromProxies(urlToFetch);
+        // Add our proxy prefix
+        urlToFetch = `${proxyPrefix}${urlToFetch}`;
+        console.log("Using proxy URL:", urlToFetch);
+      }
 
       const result = await fetchApiData(urlToFetch);
       setData(Array.isArray(result) ? result : [result]);
@@ -98,9 +107,11 @@ function App() {
     let cleanUrl = apiUrl;
     const proxyPatterns = [
       "http://localhost:8080/",
+      "/api/",
       "https://corsproxy.io/?",
       "https://cors-anywhere.herokuapp.com/",
       "https://api.allorigins.win/raw?url=",
+      "https://proxy.cors.sh/",
     ];
 
     for (const pattern of proxyPatterns) {
@@ -116,6 +127,32 @@ function App() {
 
     setApiUrl(`${proxyPrefix}${cleanUrl}`);
     setUsingLocalProxy(true);
+  };
+
+  const cleanUrlFromProxies = (url: string): string => {
+    // Get URL without existing proxy prefixes if any
+    let cleanUrl = url;
+    const proxyPatterns = [
+      "http://localhost:8080/",
+      "/api/",
+      "https://corsproxy.io/?",
+      "https://cors-anywhere.herokuapp.com/",
+      "https://api.allorigins.win/raw?url=",
+      "https://proxy.cors.sh/",
+    ];
+
+    for (const pattern of proxyPatterns) {
+      if (cleanUrl.includes(pattern)) {
+        cleanUrl = cleanUrl.replace(pattern, "");
+        if (pattern.includes("url=")) {
+          // Handle URL parameter style proxies
+          cleanUrl = decodeURIComponent(cleanUrl);
+        }
+        break;
+      }
+    }
+
+    return cleanUrl;
   };
 
   return (

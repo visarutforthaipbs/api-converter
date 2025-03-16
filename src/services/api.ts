@@ -63,13 +63,19 @@ const normalizeApiResponse = (responseData: any): any[] => {
  * @returns The fetched data as an array of objects
  */
 export const fetchApiData = async (url: string): Promise<any[]> => {
-  // Check if it's already using a local proxy
-  if (url.includes("localhost:8080/")) {
+  // If URL already has our proxy prefix, use it directly without additional handling
+  if (url.includes("localhost:8080/") || url.startsWith("/api/")) {
     try {
-      const response = await axios.get(url);
+      console.log("Using our own proxy server:", url);
+      const response = await axios.get(url, {
+        timeout: 20000, // 20 second timeout
+        headers: {
+          Accept: "application/json",
+        },
+      });
       return normalizeApiResponse(response.data);
     } catch (error) {
-      console.error("Error fetching API data from local proxy:", error);
+      console.error("Error fetching API data from our proxy:", error);
       throw error;
     }
   }
