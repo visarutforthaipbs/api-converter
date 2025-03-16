@@ -40,7 +40,7 @@ function App() {
       console.log("Auto-applying proxy in production:", proxyUrl);
       setApiUrl(proxyUrl);
     }
-  }, [apiUrl, proxyPrefix]); // Include dependencies but use ref to prevent loops
+  }, [apiUrl]); // Only include apiUrl since proxyPrefix is a constant
 
   const handleFetchData = async () => {
     if (!apiUrl) {
