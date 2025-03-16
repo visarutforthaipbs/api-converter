@@ -58,17 +58,6 @@ const normalizeApiResponse = (responseData: any): any[] => {
   return Array.isArray(responseData) ? responseData : [responseData];
 };
 
-// Add a function to check if a URL is a Thai government API
-const isThaiGovernmentAPI = (url: string): boolean => {
-  // Check for common Thai government domains
-  return (
-    url.includes(".go.th") ||
-    url.includes(".moph.go.th") ||
-    url.includes("epid-odpc2.ddc.moph.go.th") ||
-    url.includes("covid19.ddc.moph.go.th")
-  );
-};
-
 interface FetchOptions {
   useThaiProxy?: boolean;
 }
