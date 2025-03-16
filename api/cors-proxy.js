@@ -35,32 +35,42 @@ module.exports = async function handler(req, res) {
   let isThaiAPI = false; // Initialize isThaiAPI for scope
 
   try {
-    // The path after "/api/" is the encoded URL
-    targetUrl = req.url.slice(1); // Remove leading slash
+    // Extract the URL part from the request path
+    // For paths like /api/https://example.com we want to get https://example.com
+    let path = req.url;
 
-    // Debug the received URL
-    console.log(`Original request URL: ${req.url}`);
-    console.log(`Initial target URL: ${targetUrl}`);
+    // Debug information
+    console.log("Original path:", path);
+
+    // Remove the leading /api/ if it exists
+    if (path.startsWith("/")) {
+      path = path.substring(1);
+    }
+
+    // If there are multiple slashes after /api/, fix them
+    targetUrl = path;
+
+    console.log("Path after removing leading slash:", targetUrl);
 
     // Always try to decode the URL first, in case it's been URL encoded
     try {
-      const decodedUrl = decodeURIComponent(targetUrl);
-      if (decodedUrl !== targetUrl) {
-        console.log(`Successfully decoded URL: ${decodedUrl}`);
+      // Some clients encode the entire URL
+      if (targetUrl.includes("%3A%2F%2F")) {
+        const decodedUrl = decodeURIComponent(targetUrl);
+        console.log(
+          `Successfully decoded URL from full encoding: ${decodedUrl}`
+        );
         targetUrl = decodedUrl;
       }
     } catch (e) {
       console.log(`URL decoding failed, will use as-is: ${e.message}`);
     }
 
-    // Handle case when URL might be double-encoded
-    if (
-      targetUrl.startsWith("http%3A%2F%2F") ||
-      targetUrl.startsWith("https%3A%2F%2F")
-    ) {
+    // Handle case when URL might still have encoded parts
+    if (targetUrl.includes("%")) {
       try {
         targetUrl = decodeURIComponent(targetUrl);
-        console.log(`Decoded URL from percent encoding: ${targetUrl}`);
+        console.log(`Additional decoding of URL: ${targetUrl}`);
       } catch (e) {
         console.log(`Secondary URL decoding failed: ${e.message}`);
       }
@@ -90,6 +100,20 @@ module.exports = async function handler(req, res) {
       targetUrl = targetUrl.replace("/haze-r2", "/haze-r2/");
     }
 
+    // Add /api after /haze-r2/ if it's not there
+    if (
+      targetUrl.includes("/haze-r2/") &&
+      !targetUrl.includes("/haze-r2/api/")
+    ) {
+      if (targetUrl.includes("/haze-r2/patient-group-location")) {
+        targetUrl = targetUrl.replace(
+          "/haze-r2/patient-group-location",
+          "/haze-r2/api/patient-group-location"
+        );
+        console.log(`Added missing /api/ in path: ${targetUrl}`);
+      }
+    }
+
     // Validate URL structure
     try {
       new URL(targetUrl);
@@ -100,6 +124,7 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({
         error: `Invalid URL structure: ${error.message}`,
         receivedUrl: targetUrl,
+        originalUrl: req.url,
       });
     }
 
@@ -230,6 +255,7 @@ module.exports = async function handler(req, res) {
       error: errorMessage,
       code: statusCode,
       url: targetUrl,
+      originalUrl: req.url,
       isThaiAPI: isThaiAPI,
     });
   }

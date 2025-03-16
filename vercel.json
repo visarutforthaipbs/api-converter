@@ -14,11 +14,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "api/cors-proxy.js"
-    },
-    {
-      "src": "/api",
-      "dest": "/cors-proxy.js"
+      "dest": "/api/cors-proxy.js"
     },
     {
       "src": "/static/(.*)",
